@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="style/login.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Third project</title>
+    </head>
+    <body>
+      <div w3-include-html="/layout/header.html"></div>
+      <div class="login-page">
+        <h1>Nueva orden </h1>
+         <div class="login-form">
+           <div class="form">
+              <input id="bill" type="number" placeholder="numero de factura"></input>
+              <input id="name" type="text" placeholder="nombre"/>
+              <input id="lastname" type="text" placeholder="apellido"/>
+              <input id="total" type="number" placeholder="total"/>
+              <button id="create_order">crear orden</button>
+            </div>
+          </div>
+        </div>
+      <script src="./js/XHR.js"></script>
+      <script src="./js/w3.js"></script>
+      <script src="./js/check_header.js"></script>
+      <script src="./js/check_session.js"></script>
+      <script src="./js/new_order.js"></script>
+    </body>
+</html>
