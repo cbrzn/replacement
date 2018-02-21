@@ -2,7 +2,7 @@ function $(id) {
     return document.getElementById(id);
 };
 function log(){
-     var xhr = new XHR();
+  var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
        if (data.session){
           $('cart').style.display = "block";

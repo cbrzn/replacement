@@ -10,11 +10,12 @@ function new_account(){
     let name = $('name').value;
     let lastname = $('lastname').value;
     let password = $('password').value;
-    xhr.post(`../signup`,{username:username, email:email, password:password, name:name, lastname:lastname},{'Content-Type':'application/json'}).then((data)=>{
+    let zone = $('zone').value;
+    xhr.post(`../signup`,{username:username, email:email, password:password, name:name, lastname:lastname, zone:zone},{'Content-Type':'application/json'}).then((data)=>{
       console.log(data);
       if (data.status == 200) {
         window.location.href = "./login.html";
-        alert("You have registered!");
+        alert("Te has registrado, ahora inicia sesion");
       }
     });
 };

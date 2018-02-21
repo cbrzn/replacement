@@ -3,7 +3,8 @@ let router = express.Router();
 let cart = require('./../helpers/cart_db');
 
 router.post('/new', (req, res) => {
-  console.log(req.body)
+  var stock = parseInt(req.body.stock) - parseInt(req.body.quantity);
+  cart.update_product_stock(stock, req.body.product_id);
   cart.add_cart(req.user.id, req.body.product_id, req.body.product_name, req.body.product_path, req.body.product_price, req.body.quantity, req.body.total).then((data)=>{
       res.send({msg:req.body});
       }).catch((err)=>{

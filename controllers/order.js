@@ -33,16 +33,21 @@ router.post('/send_email',(req, res)=> {
         if(error){
             status = false;
             console.log(error);
+            res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price, sent:true});
         }else{
             status = true;
             console.log('Message sent: ' + info.response);
+            res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price, sent:true});
         }
     });
-    res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price});
   });
 
 router.post('/create',(req,res) => {
-    order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total);
+    var d = new Date();
+    var month = d.getMonth();
+    var test = month+1;
+    var date = d.getFullYear()+"-"+test+"-"+d.getDate();
+    order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total, date);
       res.send({status:200});
 });
 
@@ -79,11 +84,8 @@ router.get('/delete/:id', (req, res) => {
 });
 
 router.post('/update_status', (req, res) => {
-  order.change_status(req.body.user_id, req.body.product_id, req.body.product_name, req.body.product_path).then((data)=>{
-      res.send({msg:data});
-      }).catch((err)=>{
-          throw err;
-      });
+  order.change_status(true, req.body.bill_number);
+  res.send({status:200});
 });
 
 router.get('/check_payment/:id', (req,res) => {
@@ -96,6 +98,19 @@ router.post('/by_lastname', (req, res) => {
   order.order_by_lastname(req.body.lastname).then((data) => {
     res.send({orders:data});
   });
+});
+
+router.post('/deliver_done', (req, res) => {
+  var d = new Date();
+  var default_month = d.getMonth();
+  var month = default_month + 1;
+  var deliver_date = d.getDate()+"-"+month+"-"+d.getFullYear();
+  var day = d.getDate();
+  var payment_day = day + parseInt(req.body.pay_days);
+  var payment_date = payment_day+"-"+month+"-"+d.getFullYear();
+  order.order_delivered(deliver_date, payment_date, req.body.bill_number);
+  res.send({status:200});
+
 });
 
 

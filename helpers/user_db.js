@@ -28,11 +28,11 @@ module.exports.comparePassword = (candidatePassword, hash)=>{
     });
 };
 
-module.exports.add_user = (username, email, password, name, lastname)=>{
+module.exports.add_user = (username, email, password, name, lastname, zone)=>{
     return new Promise((res,rej)=>{
     //  bcrypt.hash(password, 10, function(err, hash) {
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO users (username, email, password, name, last_name) VALUES ($1, $2, $3, $4, $5)',[username, email, password, name, lastname]).then((data)=>{
+            obj.none('INSERT INTO users (username, email, password, name, last_name, zone) VALUES ($1, $2, $3, $4, $5, $6)',[username, email, password, name, lastname, zone]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

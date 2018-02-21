@@ -1,9 +1,9 @@
 const db = require('./db');
 
-module.exports.add_order = (bill_number, first_name, last_name, total)=>{
+module.exports.add_order = (bill_number, first_name, last_name, total, billing_date)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO orders (bill_number, first_name, last_name, total) VALUES ($1, $2, $3, $4)', [bill_number, first_name, last_name, total]).then((data)=>{
+            obj.none('INSERT INTO orders (bill_number, first_name, last_name, total, billing_date) VALUES ($1, $2, $3, $4, $5)', [bill_number, first_name, last_name, total, billing_date]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -21,7 +21,7 @@ module.exports.add_order = (bill_number, first_name, last_name, total)=>{
 module.exports.show_all_orders = ()=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT * FROM orders').then((data)=>{
+          obj.any('select * from orders order by status asc, deliver_date desc').then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -131,6 +131,24 @@ module.exports.order_by_lastname = (last_name)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
           obj.any('SELECT FROM orders WHERE last_name = $1',[last_name]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.order_delivered = (deliver_date, payment_date, bill_number)=>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('UPDATE orders SET deliver_date = $1, payment_date = $2 WHERE bill_number = $3',[deliver_date, payment_date, bill_number]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -7,18 +6,30 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Third project</title>
+      <title>Nikkei auto parts</title>
     </head>
     <body>
       <div w3-include-html="/layout/header.html"></div>
       <div class="login-page">
-        <h1> Upload a product </h1>
+        <h1> Subir un producto </h1>
          <div class="login-form">
            <div class="form">
-              <input id="name" type="text" placeholder="name"></input>
-              <input id="price" type="number" placeholder="price"></input>
+              <input id="name" type="text" placeholder="nombre"></input>
+              <input id="price" type="number" placeholder="precio"></input>
+              <input id="description" type="text" placeholder="descripcion"></input>
+              <input id="stock" type="text" placeholder="existencia"></input>
+              <p>Puede ser vendido con existencia 0?<p>
+              <select id="type_supplier">
+                <option value=true>Si</option>
+                <option value=false>No</option>
+              </select>
+              <p>Marca</p>
+              <select id="brand"></select>
+              <p>Departamento</p>
+              <select id="department"></select>
+              <input id="code" type="select" placeholder="codigo producto"></input>
               <input id="file" type="file"></input>
-              <button id="sendFile">Upload</button>
+              <button id="sendFile">subir producto</button>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 let router = express.Router();
 let product = require('./../helpers/product_db');
+let stuff = require('./../helpers/stuff_db');
 
 
 router.get('/all',(req,res)=>{
@@ -9,6 +10,14 @@ router.get('/all',(req,res)=>{
         }).catch((err)=>{
             throw err;
         });
+    });
+
+router.get('/stuff', (req, res) => {
+  stuff.get_stuff().then((data)=>{
+      res.send({product:data});
+      }).catch((err)=> {
+          throw err;
+      });
     });
 
 router.get('/:id', (req,res)=> {
@@ -35,9 +44,9 @@ router.get('/delete/:id', (req, res) => {
 
 router.post('/update/:id', (req, res)=> {
   product.update_product(req.body.name, req.body.price, req.params.id).then((data)=> {
-    res.send({msg:data});
-  }).catch((err)=> {
-    throw err;
+      res.send({msg:data});
+      }).catch((err)=> {
+        throw err;
   });
 });
 

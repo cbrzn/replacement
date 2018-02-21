@@ -53,3 +53,21 @@ module.exports.delete_product_from_cart = (user_id, product_id)=>{
         });
     });
 }
+
+module.exports.update_product_stock = (stock, id) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.result('UPDATE products SET stock = $1 WHERE id = $2',[stock, id]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}

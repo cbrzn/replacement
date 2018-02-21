@@ -30,7 +30,7 @@ function show_product() {
     var images = $('images');
     var title = $('title');
     images.innerHTML = "";
-    title.innerHTML = "Product"
+    title.innerHTML = "Producto"
     var img = document.createElement('img');
     var modify = document.createElement('button');
     var erase = document.createElement('button');
@@ -39,10 +39,10 @@ function show_product() {
     var price = document.createElement('p');
     var quantity = document.createElement('input');
     name.innerHTML = data.product.name;
-    price.innerHTML = "Price: " + data.product.price;
-    modify.innerHTML = "Edit";
-    add_to_cart.innerHTML = "Add to cart";
-    erase.innerHTML = "Delete";
+    price.innerHTML = "Precio: " + data.product.price;
+    modify.innerHTML = "Editar";
+    add_to_cart.innerHTML = "Anadir a carro de compras";
+    erase.innerHTML = "Eliminar";
     img.setAttribute('src', data.product.path);
     img.setAttribute('id', data.product.id);
     img.setAttribute("width", "620");
@@ -84,23 +84,27 @@ function show_product() {
     modify.addEventListener('click', function() {
       $('edit').style.display = "block";
       $('images').style.display = "none";
-      $('title').innerHTML = "Edit product";
+      $('title').innerHTML = "Editar producto";
       $('update').addEventListener('click', function() {
         var name = $('name').value;
         var price = $('price').value;
         xhr.post(`./product/update/${img.id}`,{name:name, price:price, id:img.id}, {'Content-Type':'application/json'}).then((data)=>{
-          console.log("done");
+          alert("Producto editado");
         });
       });
     });
     add_to_cart.addEventListener('click', function() {
       var quantity = $('quantity').value;
       var total = parseInt(data.product.price) * parseInt(quantity);
-      xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total}, {'Content-Type':'application/json'}).then((data)=>{
+      if ((parseInt(data.product.stock) - parseInt(quantity)) <= 0) {
+        alert("No hay producto en existencia")
+      } else {
+      xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total, stock:data.product.stock}, {'Content-Type':'application/json'}).then((data)=>{
         if (data.msg !== null) {
           alert("Producto agregado");
         }
       });
+      }
     });
   });
 };

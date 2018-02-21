@@ -19,7 +19,9 @@ router.get('/getFile/:filename',(req,res)=>{
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     cloudinary.uploader.upload(req.file.path,
     function(result) {
-      Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id);
+      Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id,
+                          req.body.description, req.body.stock, req.body.type_supplier,
+                          req.body.brand, req.body.department, req.body.code);
     });
     res.send({status:200});
 });

@@ -11,7 +11,7 @@ function session(){
         if (data.status === 200) {
             window.location.href = "./index.html";
         } else {
-          alert("Wrong password or email");
+          alert("Email o contrasena no existen");
         }
     });
 };

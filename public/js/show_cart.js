@@ -1,9 +1,9 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 
 function cart() {
+  let xhr = new XHR();
   xhr.get('./cart/product',{},{}).then((data) => {
     console.log(data)
       for (var i=0; i<data.product.length; i++) {
@@ -26,7 +26,7 @@ function cart() {
 
         erase.addEventListener('click', function() {
        xhr.get(`./cart/delete/${this.id}`,{},{}).then((data) => {
-          alert("You have deleted a product from cart");
+          alert("Has eliminado un producto del carro de compras!");
           window.location.href = "./cart.html";
         })
         })
@@ -53,18 +53,15 @@ function cart() {
       $('send_card').addEventListener('click', function() {
         xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price},{'Content-Type':'application/json'}).then((data) => {
           console.log(data);
-          alert("mail sent");
-          })
-        });
-      })
+          if (data.sent === true) {
+            alert("Pedido enviado")
+          } else {
+            alert("Error al enviar el pedido. Por favor intente de nuevo")
+          }
+        })
+      });
+    })
 };
 
-function check_user() {
-  xhr.get('./value',{},{}).then((data)=>{
-    if (!data.session){
-      window.location.href ="./login.html";
-    }
-  });
-}
-addEventListener('load', check_user);
+
 addEventListener('load', cart);
