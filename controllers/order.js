@@ -13,9 +13,9 @@ router.post('/send_email',(req, res)=> {
   });
 
   var link = "http://"+req.get('host')+"/new.html";
-  var text = "<h1>" + req.body.user_name + " " + req.body.user_lastname + "</h1><ul>";
+  var text = "<h1>" + req.body.user_name + " " + req.body.user_lastname + "</h1><p> Id de usuario: " + req.body.user_id + "</p><ul>";
   for (i=0; i<req.body.products_name.length; i++) {
-    text += "<li>" + req.body.products_name[i] + " " + req.body.price[i] + " " + req.body.quantity[i] + "</li>";
+    text += "<li><p>Producto: " + req.body.products_name[i] + "</p><p>Precio: " + req.body.price[i] + "</p><p>Cantidad: " + req.body.quantity[i] + "</li>";
   }
   text += "<p> Total: "+ req.body.total +"</p>Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a></ul>";
   // setup e-mail data with unicode symbols
@@ -47,7 +47,7 @@ router.post('/create',(req,res) => {
     var month = d.getMonth();
     var test = month+1;
     var date = d.getFullYear()+"-"+test+"-"+d.getDate();
-    order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total, date);
+    order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total, date, req.body.user_id);
       res.send({status:200});
 });
 
@@ -61,6 +61,14 @@ router.post('/update_comment', (req, res) => {
 
 router.get('/all', (req, res) => {
   order.show_all_orders().then((data) =>{
+    res.send({orders:data});
+    }).catch((err)=>{
+        throw err;
+    });
+});
+
+router.get('/user/:id', (req, res) => {
+  order.show_user_orders(req.params.id).then((data) =>{
     res.send({orders:data});
     }).catch((err)=>{
         throw err;
@@ -88,11 +96,13 @@ router.post('/update_status', (req, res) => {
   res.send({status:200});
 });
 
-router.get('/check_payment/:id', (req,res) => {
-  order.check_payment_date(req.params.id).then((data) => {
-    res.send({date:data});
-  });
-});
+router.post('/tag_search', (req, res) => {
+  order.show_orders_by_tag(req.body.value).then((data)=>{
+        res.send({orders:data});
+        }).catch((err)=>{
+            throw err;
+        });
+    });
 
 router.post('/by_lastname', (req, res) => {
   order.order_by_lastname(req.body.lastname).then((data) => {

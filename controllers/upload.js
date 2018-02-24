@@ -13,18 +13,23 @@ let upload = multer({dest: "./uploads/"});
 
 let router = express.Router();
 
-router.get('/getFile/:filename',(req,res)=>{
-    res.download(`${__dirname}/../images/${req.params.filename}`);
-});
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     cloudinary.uploader.upload(req.file.path,
     function(result) {
-      Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id,
-                          req.body.description, req.body.stock, req.body.type_supplier,
-                          req.body.brand, req.body.department, req.body.code);
+      if (Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id,
+                              req.body.description, req.body.stock, req.body.type_supplier,
+                              req.body.brand, req.body.department, req.body.code)) {
+        res.send({status:200});
+      } else {
+        res.send({status:500})
+      }
     });
-    res.send({status:200});
 });
+
+router.get('/getFile/:filename',(req,res)=>{
+    res.download(`${__dirname}/../images/${req.params.filename}`);
+});
+
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});
 });

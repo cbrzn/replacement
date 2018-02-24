@@ -4,15 +4,19 @@ function $(id) {
 function log(){
   var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
+       console.log(data)
        if (data.session){
           $('cart').style.display = "block";
-          $('upload').style.display = "block";
+          if (data.admin === true) {
+            $('upload').style.display = "block";
+          }
           $('logout').style.display = "block";
           $('order').style.display = "block";
+          $('price').style.display = "block";
           $('logout').addEventListener('click', function() {
              xhr.get('./logout',{},{}).then((data) => {
                if (data.status == "Bye!") {
-                 alert("You have logged out!")
+                 alert("Has cerrado sesion")
                  window.location.href = "./index.html"
                }
              })

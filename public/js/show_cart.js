@@ -49,9 +49,9 @@ function cart() {
       }
       var user_name = data.session.name;
       var user_lastname = data.session.last_name;
-
+      var user_id = data.session.id;
       $('send_card').addEventListener('click', function() {
-        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price},{'Content-Type':'application/json'}).then((data) => {
+        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price, user_id:user_id},{'Content-Type':'application/json'}).then((data) => {
           console.log(data);
           if (data.sent === true) {
             alert("Pedido enviado")

@@ -37,7 +37,7 @@ router.post('/signup',auth.isLogged,function(req, res, next) {
 });
 
 router.get('/value',auth.isAuth ,(req,res) => {
-    res.send({session:req.session.passport, id:req.user.id});
+    res.send({session:req.session.passport, id:req.user.id, admin:req.user.admin});
 });
 
 router.get('/logout',auth.isAuth ,(req, res) => {

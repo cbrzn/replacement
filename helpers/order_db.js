@@ -1,9 +1,9 @@
 const db = require('./db');
 
-module.exports.add_order = (bill_number, first_name, last_name, total, billing_date)=>{
+module.exports.add_order = (bill_number, first_name, last_name, total, billing_date, user_id)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO orders (bill_number, first_name, last_name, total, billing_date) VALUES ($1, $2, $3, $4, $5)', [bill_number, first_name, last_name, total, billing_date]).then((data)=>{
+            obj.none('INSERT INTO orders (bill_number, first_name, last_name, total, billing_date, user_id) VALUES ($1, $2, $3, $4, $5, $6)', [bill_number, first_name, last_name, total, billing_date, user_id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -22,6 +22,24 @@ module.exports.show_all_orders = ()=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
           obj.any('select * from orders order by status asc, deliver_date desc').then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.show_by_user = (user_id)=>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('select * from orders where user_id = $1', [user_id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -127,10 +145,10 @@ module.exports.comment_order = (comment, bill_number)=>{
     });
 }
 
-module.exports.order_by_lastname = (last_name)=>{
+module.exports.show_orders_by_tag = (value) => {
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT FROM orders WHERE last_name = $1',[last_name]).then((data)=>{
+            obj.any('SELECT * FROM orders WHERE last_name like \'%\' || $1 || \'%\'', [value]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -144,6 +162,25 @@ module.exports.order_by_lastname = (last_name)=>{
         });
     });
 }
+
+module.exports.show_user_orders = (value) => {
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+            obj.any('SELECT * FROM orders WHERE user_id = $1',[value]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
 
 module.exports.order_delivered = (deliver_date, payment_date, bill_number)=>{
     return new Promise((res,rej)=>{

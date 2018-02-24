@@ -20,6 +20,14 @@ router.get('/stuff', (req, res) => {
       });
     });
 
+router.post('/prices', (req, res) => {
+  product.show_price_list(req.body.brand).then((data)=> {
+    res.send({list:data});
+  }).catch((err) => {
+    throw err;
+  })
+})
+
 router.get('/:id', (req,res)=> {
   if (req.user === undefined) {
     var user_id = null;
