@@ -27,7 +27,6 @@ function load_pictures() {
 
 function show_product() {
   let xhr = new XHR();
-
   xhr.get(`./product/${this.id}`,{},{}).then((data) => {
     var images = $('images');
     var title = $('title');
@@ -112,7 +111,6 @@ function show_product() {
 };
 function delete_product(id) {
   let xhr = new XHR();
-
   xhr.get(`./product/delete/${id}`,{},{}).then((data)=>{
     console.log(data);
   });
@@ -120,7 +118,6 @@ function delete_product(id) {
 
 function logout(){
   let xhr = new XHR();
-
   xhr.get('./logout',{},{}).then((data)=>{
     console.log(data);
     window.location.href = "./login.html"

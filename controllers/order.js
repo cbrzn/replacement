@@ -114,10 +114,10 @@ router.post('/deliver_done', (req, res) => {
   var d = new Date();
   var default_month = d.getMonth();
   var month = default_month + 1;
-  var deliver_date = d.getDate()+"-"+month+"-"+d.getFullYear();
+  var deliver_date = d.getFullYear()+"/"+month+"/"+d.getDate();
   var day = d.getDate();
   var payment_day = day + parseInt(req.body.pay_days);
-  var payment_date = payment_day+"-"+month+"-"+d.getFullYear();
+  var payment_date = d.getFullYear()+"/"+month+"/"+payment_day;
   order.order_delivered(deliver_date, payment_date, req.body.bill_number);
   res.send({status:200});
 
