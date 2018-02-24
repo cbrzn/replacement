@@ -1,9 +1,9 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 
 function load_pictures() {
+  let xhr = new XHR();
     xhr.get('./product/all',{},{}).then((data)=> {
       var img = [];
       for (var i=0; i<data.images.length; i++) {
@@ -26,6 +26,8 @@ function load_pictures() {
 
 
 function show_product() {
+  let xhr = new XHR();
+
   xhr.get(`./product/${this.id}`,{},{}).then((data) => {
     var images = $('images');
     var title = $('title');
@@ -109,12 +111,16 @@ function show_product() {
   });
 };
 function delete_product(id) {
+  let xhr = new XHR();
+
   xhr.get(`./product/delete/${id}`,{},{}).then((data)=>{
     console.log(data);
   });
 };
 
 function logout(){
+  let xhr = new XHR();
+
   xhr.get('./logout',{},{}).then((data)=>{
     console.log(data);
     window.location.href = "./login.html"
