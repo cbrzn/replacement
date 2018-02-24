@@ -97,7 +97,7 @@ function show_product() {
     add_to_cart.addEventListener('click', function() {
       var quantity = $('quantity').value;
       var total = parseInt(data.product.price) * parseInt(quantity);
-      if ((parseInt(data.product.stock) - parseInt(quantity)) <= 0) {
+      if ((parseInt(data.product.stock) - parseInt(quantity)) < 0) {
         alert("No hay producto en existencia")
       } else {
       xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total, stock:data.product.stock}, {'Content-Type':'application/json'}).then((data)=>{
