@@ -7,12 +7,16 @@ function session(){
     let username = $('email').value;
     let password = $('password').value;
     xhr.post(`./login`,{username:username, password:password},{'Content-Type':'application/json'}).then((data)=>{
-        console.log(data)
+        console.log(data.status.message)
         if (data.status === 200) {
             window.location.href = "./index.html";
-        } else {
-          alert("Email o contrasena no existen");
+        } else if (data.status.message === 'wrong password') {
+          alert("Contrasena incorrecta");
+        } else if (data.status.message === "email not found") {
+          alert("Correo electronico no existe");
         }
+    }).catch((err)=>{
+      console.log(err);
     });
 };
 

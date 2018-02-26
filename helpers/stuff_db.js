@@ -17,3 +17,21 @@ module.exports.get_stuff = () => {
         });
     });
   }
+
+  module.exports.add = (brand, department) => {
+      return new Promise((res,rej)=> {
+            db.connect().then((obj)=> {
+                obj.none('INSERT INTO stuff (brand, department) VALUES ($1 , $2)',[brand, department]).then((data)=>{
+                  res(data);
+                  obj.done();
+              }).catch((error)=>{
+                  console.log(error);
+                  rej(error);
+                  obj.done();
+              });
+          }).catch((error)=>{
+              console.log(error);
+              rej(error);
+          });
+      });
+    }

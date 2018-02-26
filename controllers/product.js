@@ -46,6 +46,14 @@ router.get('/stuff', (req, res) => {
       });
     });
 
+router.post('/add_stuff', (req, res) => {
+  stuff.add(req.body.brand, req.body.department).then((data)=>{
+      res.send({status:200});
+      }).catch((err)=> {
+          throw err;
+      });
+    });
+
 router.post('/prices', (req, res) => {
   product.show_price_list(req.body.brand).then((data)=> {
     res.send({list:data});

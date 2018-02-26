@@ -1,8 +1,8 @@
+var xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 function log(){
-  var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
        console.log(data)
        if (data.session){

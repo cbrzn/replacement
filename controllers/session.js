@@ -10,14 +10,15 @@ router.post('/login', auth.isLogged,function(req, res, next) {
             return next(err);
         }
         if (!user) {
-            return res.status(401).send({
+            console.log(info)
+            return res.status(200).send({
               status: info
             });
         }
         req.logIn(user, function(err) {
             if (err) {
                 return res.status(500).send({
-                  err: 'Could not log in user'
+                  status: 'Could not log in user'
                 });
             }
             res.status(200).send({

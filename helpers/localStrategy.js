@@ -16,6 +16,8 @@ module.exports = new localStrategy(function(username, password, done) {
             throw err;
         });
     }).catch((err)=>{
-        throw err;
+      console.log('pepa')
+        return done(null, false, {message: "email not found"});
+        // throw err;
     });
 });

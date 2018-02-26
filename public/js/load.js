@@ -33,6 +33,8 @@ function sendFile(){
 
 function select() {
   let xhr = new XHR();
+  $('add_stuff').style.margin = "0 auto";
+  $('add_stuff').style.display = "block";
   xhr.get('./product/stuff',{},{}).then((data)=> {
       for (var i=0; i<data.product.length; i++) {
         var brand = document.createElement("option");
@@ -51,6 +53,33 @@ function select() {
             $('department').appendChild(department);
           }
       }
+
+      $('add_stuff').addEventListener('click', function() {
+          $('upload_form').innerHTML = "";
+          $('stuff').style.display = "block";
+          $('add_stuff').style.display = "none";
+          var new_button = document.createElement('button');
+          new_button.innerHTML = "anadir";
+          new_button.setAttribute('id', 'new_add');
+          $('add_btn').appendChild(new_button)
+            $('new_add').addEventListener('click', function() {
+              var marca = $('brand').value;
+              var departamento = $('department').value;
+              if (marca === "") {
+                marca = null;
+              }
+              if (departamento === "") {
+                departamento = null;
+              }
+              xhr.post('./product/add_stuff',{brand:marca, department:departamento},{'Content-Type':'application/json'}).then((data) => {
+                 if (data.status === 200) {
+                   alert('Marca y/o departamento agregado');
+                 } else {
+                   alert('Error al agregar marca y/o departamento');
+                 }
+             });
+          });
+      });
   });
 }
 

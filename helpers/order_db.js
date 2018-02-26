@@ -21,7 +21,7 @@ module.exports.add_order = (bill_number, first_name, last_name, total, billing_d
 module.exports.show_all_orders = ()=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('select * from orders order by status asc, deliver_date asc, billing_date asc').then((data)=>{
+          obj.any('SELECT * FROM orders ORDER BY status ASC, deliver_date ASC').then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -39,7 +39,7 @@ module.exports.show_all_orders = ()=>{
 module.exports.show_by_user = (user_id)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('select * from orders where user_id = $1', [user_id]).then((data)=>{
+          obj.any('SELECT * FROM orders WHERE user_id = $1', [user_id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
