@@ -11,15 +11,34 @@
     <body>
       <div w3-include-html="/layout/header.html"></div>
         <h1><div id='title'>Todos los productos</div></h1>
-          <div id="images">
+          <div id="images"></div>
+          <div id="search">
+            <select id="select_brand" style="display: none;"></select>
           </div>
-
           <div id="edit" style="display: none;" class="login-page">
             <div class="login-form">
               <div class="form">
-                 <input id="price" type="number" placeholder="price"></input>
-                 <input id="name" type="text" placeholder="name"></input>
-                 <button id="update">Editar</button>
+                <input id="name" type="text" placeholder="nombre"></input>
+                <input id="precio" type="number" placeholder="precio"></input>
+                <input id="description" type="text" placeholder="descripcion"></input>
+                <input id="stock" type="number" placeholder="existencia"></input>
+                <p>Puede ser vendido con existencia 0?<p>
+                <select id="type_supplier">
+                  <option value=true>Si</option>
+                  <option value=false>No</option>
+                  <option value="nothing" selected> No editar </option>
+                </select>
+                <p>Marca</p>
+                <select id="brand">
+                  <option value="not" selected> No editar </option>
+                </select>
+                <p>Departamento</p>
+                <select id="department">
+                  <option value="not_two" selected> No editar </option>
+                </select>
+                <input id="code" type="text" placeholder="codigo producto"></input>
+                <input id="file" type="file"></input>
+                <button id="update">editar producto</button>
                </div>
              </div>
            </div>

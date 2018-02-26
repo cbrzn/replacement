@@ -1,9 +1,9 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 
 function session(){
+    let xhr = new XHR();
     let username = $('email').value;
     let password = $('password').value;
     xhr.post(`./login`,{username:username, password:password},{'Content-Type':'application/json'}).then((data)=>{

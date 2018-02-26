@@ -1,10 +1,9 @@
-var xhr = new XHR();
-
 function $(id) {
     return document.getElementById(id);
 };
 
 function show_all_orders() {
+  let xhr = new XHR();
   xhr.get('./order/all',{},{}).then((data)=> {
     $('searching').style.display = "block";
     var tbl = $('table');
@@ -123,6 +122,7 @@ function show_all_orders() {
 
 
 function show_specific_orders() {
+  let xhr = new XHR();
   var value = $('value').value;
   if ($('tbdy') != null) {
     $('tbdy').remove();
@@ -212,6 +212,7 @@ function show_specific_orders() {
 }
 
 function show_user_orders(id) {
+  let xhr = new XHR();
   xhr.get(`./order/user/${id}`,{},{}).then((data)=> {
     var tbl = $('table');
     tbl.setAttribute("id", "table");
@@ -328,6 +329,7 @@ function show_user_orders(id) {
 }
 
 function order_info() {
+  let xhr = new XHR();
   xhr.get(`./order/show/${this.id}`,{},{}).then((data) => {
       $("table").innerHTML = "";
       $('searching').style.display = "none";
@@ -404,6 +406,7 @@ function order_info() {
       text.style.margin = "0 auto";
       text.style.display = "block";
       text.setAttribute("placeholder", "observacion");
+      text.setAttribute('id', 'comment');
       order.appendChild(name);
       order.appendChild(bill);
       order.appendChild(status);
@@ -458,10 +461,35 @@ function order_info() {
             alert("Orden marcada como pagada");
           });
       });
+      comment.addEventListener('click', function() {
+        var bill = data.order.bill_number;
+        var comment = $('comment').value;
+        if (comment === "") {
+          comment = null;
+        }
+        var r = confirm("Segur@ que desea comentar esta orden?")
+        if (r == true) {
+          xhr.post('./order/comment',{comment:comment, bill:bill},{'Content-Type':'application/json'}).then((data) => {
+            alert("Orden comentada");
+            window.location.href = "./order.html";
+          });
+        }
+      });
+      erase.addEventListener('click', function() {
+        var id = data.order.bill_number;
+          var r = confirm("Segur@ que desea eliminar esta orden?")
+          if (r == true) {
+            xhr.get(`./order/delete/${id}`,{},{}).then((data) => {
+              alert("Orden eliminada");
+              window.location.href = "./order.html";
+            });
+          }
+      });
     });
 };
 
 function order_info_for_users() {
+  let xhr = new XHR();
   xhr.get(`./order/show/${this.id}`,{},{}).then((data) => {
       $("table").innerHTML = "";
       $('searching').style.display = "none";
@@ -528,7 +556,8 @@ function order_info_for_users() {
 
 
 function check_admin() {
-  xhr.get('./value',{},{}).then((data)=>{
+  let xhr = new XHR();
+    xhr.get('./value',{},{}).then((data)=>{
     console.log(data.session)
     if (data.admin === true){
       show_all_orders();

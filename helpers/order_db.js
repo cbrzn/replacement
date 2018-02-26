@@ -21,7 +21,7 @@ module.exports.add_order = (bill_number, first_name, last_name, total, billing_d
 module.exports.show_all_orders = ()=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('select * from orders order by status asc, deliver_date desc').then((data)=>{
+          obj.any('select * from orders order by status asc, deliver_date asc').then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -112,6 +112,24 @@ module.exports.change_status = (status, bill_number)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
           obj.any('UPDATE orders SET status = $1 WHERE bill_number = $2',[status, bill_number]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.ordered_carts = (ordered, product_id, user_id, status) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('UPDATE carts SET ordered = $1 WHERE product_id = $2 AND user_id = $3 AND ordered = $4',[ordered, product_id, user_id, status]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

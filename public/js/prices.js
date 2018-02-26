@@ -1,9 +1,8 @@
-var xhr = new XHR();
-
 function $(id) {
     return document.getElementById(id);
 };
 function show_prices() {
+  var xhr = new XHR();
   var brand = $('brand').value;
   $('tr').innerHTML = "";
   if ($('tbdy') != null) {
@@ -60,6 +59,7 @@ function show_prices() {
 }
 
 function select() {
+  var xhr = new XHR();
   xhr.get('./product/stuff',{},{}).then((data)=> {
       for (var i=0; i<data.product.length; i++) {
         var brand = document.createElement("option");

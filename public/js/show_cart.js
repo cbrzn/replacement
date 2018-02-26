@@ -28,7 +28,7 @@ function cart() {
        xhr.get(`./cart/delete/${this.id}`,{},{}).then((data) => {
           alert("Has eliminado un producto del carro de compras!");
           window.location.href = "./cart.html";
-        })
+          })
         })
       }
       var total = 0;
@@ -47,11 +47,16 @@ function cart() {
       for (var i=0; i<data.product.length; i++) {
         arr_price.push(data.product[i].product_price);
       }
+      var arr_id = [];
+      for (var i=0; i<data.product.length; i++) {
+        arr_id.push(data.product[i].product_id);
+      }
       var user_name = data.session.name;
       var user_lastname = data.session.last_name;
       var user_id = data.session.id;
+      console.log(arr_id)
       $('send_card').addEventListener('click', function() {
-        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price, user_id:user_id},{'Content-Type':'application/json'}).then((data) => {
+        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
           console.log(data);
           if (data.sent === true) {
             alert("Pedido enviado")

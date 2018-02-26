@@ -1,10 +1,10 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 
 
 function new_account(){
+    let xhr = new XHR();
     let username = $('username').value;
     let email = $('email').value;
     let name = $('name').value;

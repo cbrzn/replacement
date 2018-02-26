@@ -18,10 +18,10 @@ module.exports.add_cart = (user_id, product_id, product_name, product_path, quan
     });
 }
 
-module.exports.show_cart = (user_id)=>{
+module.exports.show_cart = (user_id, status)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT * FROM carts WHERE user_id = $1',[user_id]).then((data)=>{
+          obj.any('SELECT * FROM carts WHERE user_id = $1 AND ordered = $2',[user_id, status]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -36,10 +36,28 @@ module.exports.show_cart = (user_id)=>{
     });
 }
 
-module.exports.delete_product_from_cart = (user_id, product_id)=>{
+module.exports.check_cart = (user_id, product_id, status)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('DELETE FROM carts WHERE user_id = $1 AND product_id = $2',[user_id, product_id]).then((data)=>{
+          obj.any('SELECT * FROM carts WHERE user_id = $1 AND product_id = $2 AND ordered = $3',[user_id, product_id, status]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.delete_product_from_cart = (user_id, product_id, status)=>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('DELETE FROM carts WHERE user_id = $1 AND product_id = $2 AND ordered = $3',[user_id, product_id, status]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

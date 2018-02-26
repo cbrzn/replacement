@@ -31,16 +31,17 @@ router.post('/send_email',(req, res)=> {
       var status;
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
-            status = false;
             console.log(error);
-            res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price, sent:true});
+            res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price, sent:false});
         }else{
-            status = true;
             console.log('Message sent: ' + info.response);
+            for (var i=0; i<req.body.product_id.length; i++) {
+              order.ordered_carts(true, req.body.product_id[i], req.body.user_id, false);
+            }
             res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price, sent:true});
-        }
-    });
+          }
   });
+});
 
 router.post('/create',(req,res) => {
     var d = new Date();
@@ -51,7 +52,7 @@ router.post('/create',(req,res) => {
       res.send({status:200});
 });
 
-router.post('/update_comment', (req, res) => {
+router.post('/comment', (req, res) => {
   order.comment_order(req.body.comment, req.body.bill).then((data)=>{
       res.send({msg:data});
       }).catch((err)=>{

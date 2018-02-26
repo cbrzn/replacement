@@ -1,8 +1,8 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 function sendFile(){
+  let xhr = new XHR();
     let formData = new FormData();
     let name = $("name").value;
     let precio = $("precio").value;
@@ -32,6 +32,7 @@ function sendFile(){
 };
 
 function select() {
+  let xhr = new XHR();
   xhr.get('./product/stuff',{},{}).then((data)=> {
       for (var i=0; i<data.product.length; i++) {
         var brand = document.createElement("option");
