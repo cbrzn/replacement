@@ -76,6 +76,8 @@ function load_pictures() {
 
 function show_product() {
   let xhr = new XHR();
+  var search = $('search');
+  search.style.display = "none";
   xhr.get(`./product/${this.id}`,{},{}).then((data) => {
     var images = $('images');
     var title = $('title');

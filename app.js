@@ -4,7 +4,7 @@ const morgan = require('morgan');
 let passport = require('passport');
 const config = require('./helpers/config');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 
 
