@@ -177,7 +177,6 @@ function show_product() {
         });
       });
     });
-    console.log(data.product.type_supplier)
     add_to_cart.addEventListener('click', function() {
       var quantity = $('quantity').value;
       var total = parseInt(data.product.price) * parseInt(quantity);

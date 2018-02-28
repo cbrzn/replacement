@@ -118,7 +118,17 @@ router.post('/deliver_done', (req, res) => {
   var deliver_date = d.getFullYear()+"/"+month+"/"+d.getDate();
   var day = d.getDate();
   var payment_day = day + parseInt(req.body.pay_days);
+  if (month === 2 && !(payment_day <= 28)) {
+    var a = payment_day - 28;
+    month += 1;
+    payment_day = a;
+  } else if ((month % 2 === 0 && month < 8) || month === 7 || (!(month % 2 === 0) && month > 7)) {
+    var a = payment_dat = 30;
+    payment_day = a;
+    month += 1;
+  }
   var payment_date = d.getFullYear()+"/"+month+"/"+payment_day;
+  console.log(payment_date);
   order.order_delivered(deliver_date, payment_date, req.body.bill_number);
   res.send({status:200});
 
