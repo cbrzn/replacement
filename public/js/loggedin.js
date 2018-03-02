@@ -288,6 +288,9 @@ function load_products() {
             break;
             case 3:
               td.innerHTML = data.list[i].stock;
+              if (data.list[i].stock < 0) {
+                td.innerHTML = 0;
+              }
             break;
             case 4:
               td.innerHTML = data.list[i].brand;
@@ -385,6 +388,9 @@ function load_products() {
                        break;
                        case 3:
                          td.innerHTML = data.list[i].stock;
+                         if (data.list[i].stock < 0) {
+                           td.innerHTML = 0;
+                         }
                        break;
                        case 4:
                          td.innerHTML = data.list[i].brand;
