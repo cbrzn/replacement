@@ -8,7 +8,7 @@ router.post('/new', (req, res) => {
   cart.update_product_stock(stock, req.body.product_id);
   cart.check_cart(req.user.id, req.body.product_id, false).then((data)=>{
     if (data[0] == undefined) {
-      cart.add_cart(req.user.id, req.body.product_id, req.body.product_name, req.body.product_path, req.body.product_price, req.body.quantity, req.body.total);
+      cart.add_cart(req.user.id, req.body.product_id, req.body.product_name, req.body.product_price, req.body.quantity, req.body.total);
       res.send({msg:200});
     } else {
       res.send({msg:401});
@@ -20,7 +20,7 @@ router.post('/new', (req, res) => {
 
 router.get('/product', (req, res) => {
   cart.show_cart(req.user.id, false).then((data) =>{
-    res.send({product:data, session:req.user});
+    res.send({list:data, session:req.user});
     }).catch((err)=>{
         throw err;
     });

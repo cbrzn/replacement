@@ -25,7 +25,7 @@
                   <a id="signup" class="nav-link" href="./signup.html" style="display:none">Registrate</a>
                 </li>
                   <li class="nav-item active">
-                  <a id="upload" class="nav-link" href="./upload.html" style="display:none">Subir un producto</a>
+                    <a id="upload" class="nav-link" href="./upload.html" style="display:none">Agregar producto</a>
                 </li>
                 <li class="nav-item active">
                   <a id="cart" class="nav-link" href="./cart.html" style="display:none">Carro de compras</a>
@@ -43,19 +43,25 @@
             </div>
           </nav>
         </nav>
-      </div>        <h1><div id='title'>Todos los productos</div></h1>
-          <div id="images"></div>
+      </div>
+          <h1><div id='title'>Todos los productos</div></h1>
+          <table id="table" border="3" style="width: 100%;">
+            <thead>
+              <tr id="tr">
+              </tr>
+            </thead>
+          </table>
           <div id="search">
             <select id="select_brand" style="display: none;"></select>
           </div>
           <div id="edit" style="display: none;" class="login-page">
             <div class="login-form">
               <div class="form">
-                <input id="name" type="text" placeholder="nombre"></input>
+                <input id="code" type="text" placeholder="codigo producto"></input>
                 <input id="precio" type="number" placeholder="precio"></input>
                 <input id="description" type="text" placeholder="descripcion"></input>
                 <input id="stock" type="number" placeholder="existencia"></input>
-                <p>Puede ser vendido con existencia 0?<p>
+                <p>Puede ser facturado con existencia 0?<p>
                 <select id="type_supplier">
                   <option value=true>Si</option>
                   <option value=false>No</option>
@@ -69,8 +75,6 @@
                 <select id="department">
                   <option value="not_two" selected> No editar </option>
                 </select>
-                <input id="code" type="text" placeholder="codigo producto"></input>
-                <input id="file" type="file"></input>
                 <button id="update">editar producto</button>
                </div>
              </div>

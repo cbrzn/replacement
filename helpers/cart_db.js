@@ -1,9 +1,9 @@
 const db = require('./db');
 
-module.exports.add_cart = (user_id, product_id, product_name, product_path, quantity, product_price, total)=>{
+module.exports.add_cart = (user_id, product_id, product_name, quantity, product_price, total)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO carts (user_id, product_id, product_name, path, product_price, quantity, total) VALUES ($1, $2, $3, $4, $5, $6, $7)', [user_id, product_id, product_name, product_path, quantity, product_price, total]).then((data)=>{
+            obj.none('INSERT INTO carts (user_id, product_id, product_name, product_price, quantity, total) VALUES ($1, $2, $3, $4, $5, $6)', [user_id, product_id, product_name, quantity, product_price, total]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

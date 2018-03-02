@@ -4,7 +4,6 @@ function $(id) {
 function sendFile(){
   let xhr = new XHR();
     let formData = new FormData();
-    let name = $("name").value;
     let precio = $("precio").value;
     let description = $("description").value;
     let stock = $("stock").value;
@@ -12,8 +11,6 @@ function sendFile(){
     let brand = $("brand").value;
     let department = $("department").value;
     let code = $("code").value;
-    let file = $("file").files[0];
-    formData.append('name', name);
     formData.append('price', precio);
     formData.append('description', description);
     formData.append('stock', stock);
@@ -21,13 +18,13 @@ function sendFile(){
     formData.append('brand', brand);
     formData.append('department', department);
     formData.append('code', code);
-    formData.append('file', file, file.name);
-     xhr.post(`../file/uploadSingFile`,formData,{}).then((data)=>{
+     xhr.post(`./product/create`,{price:precio, description:description, stock:stock, type_supplier:type_supplier, brand:brand, department:department, code:code},{'Content-Type':'application/json'}).then((data)=>{
        if (data.status === 200) {
-         alert("Producto cargado");
-       } else {
-         alert("Error al cargar el producto")
-       }
+          alert("Producto cargado");
+          window.location.href = './upload.html';
+        } else {
+          alert("Error al cargar el producto")
+        }
   });
 };
 

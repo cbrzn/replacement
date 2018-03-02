@@ -25,7 +25,7 @@
                   <a id="signup" class="nav-link" href="./signup.html" style="display:none">Registrate</a>
                 </li>
                   <li class="nav-item">
-                  <a id="upload" class="nav-link" href="./upload.html" style="display:none">Subir un producto</a>
+                    <a id="upload" class="nav-link" href="./upload.html" style="display:none">Agregar producto</a>
                 </li>
                 <li class="nav-item active">
                   <a id="cart" class="nav-link" href="./cart.html" style="display:none">Carro de compras</a>
@@ -43,15 +43,16 @@
             </div>
           </nav>
         </nav>
-      </div>      <div class="login-page" id="upload_form">
-        <h1> Subir un producto </h1>
+      </div>
+       <div class="login-page" id="upload_form">
+        <h1> Agregar producto </h1>
          <div class="login-form">
            <div class="form">
-              <input id="name" type="text" placeholder="nombre"></input>
+              <input id="code" type="text" placeholder="codigo producto"></input>
               <input id="precio" type="number" placeholder="precio"></input>
               <input id="description" type="text" placeholder="descripcion"></input>
               <input id="stock" type="number" placeholder="existencia"></input>
-              <p>Puede ser vendido con existencia 0?<p>
+              <p>Puede ser facturado con existencia 0?<p>
               <select id="type_supplier">
                 <option value=true>Si</option>
                 <option value=false>No</option>
@@ -60,8 +61,6 @@
               <select id="brand"></select>
               <p>Departamento</p>
               <select id="department"></select>
-              <input id="code" type="text" placeholder="codigo producto"></input>
-              <input id="file" type="file"></input>
               <button id="sendFile">subir producto</button>
             </div>
           </div>
@@ -84,5 +83,7 @@
       <script src="./js/XHR.js"></script>
       <script src="./js/load.js"></script>
       <script src="./js/check_header.js"></script>
+      <script src="./js/check_session.js"></script>
+      <script src="./js/check_admin.js"></script>
     </body>
 </html>

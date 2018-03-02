@@ -1,19 +1,19 @@
 const db = require('./db');
 
-module.exports.add_product = (name, path, price, user_id, description, stock, type_supplier, brand, despartment, code)=>{
+module.exports.add_product = (price, user_id, description, stock, type_supplier, brand, despartment, code)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO products (name, path, price, user_id, description, stock, type_supplier, brand, department, code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [name, path, price, user_id, description, stock, type_supplier, brand, despartment, code]).then((data)=>{
-                res(data);
+            obj.none('INSERT INTO products (price, user_id, description, stock, type_supplier, brand, department, code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [price, user_id, description, stock, type_supplier, brand, despartment, code]).then((data)=>{
+                res(200);
                 obj.done();
             }).catch((error)=>{
                 console.log(error);
-                rej(error);
+                rej(500);
                 obj.done();
             });
         }).catch((error)=>{
             console.log(error);
-            rej(error);
+            rej(500);
         });
     });
 }
@@ -147,10 +147,10 @@ module.exports.delete_product = (id) =>{
     });
 }
 
-module.exports.update_product = (name, price, description, stock, type_supplier, brand, department, code, id) =>{
+module.exports.update_product = (price, description, stock, type_supplier, brand, department, code, id) =>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.result('UPDATE products SET name = $1, price = $2, description = $3, stock = $4, type_supplier = $5, brand = $6, department = $7, code = $8 WHERE id = $9',[name, price, description, stock, type_supplier, brand, department, code, id]).then((data)=>{
+          obj.result('UPDATE products SET price = $1, description = $2, stock = $3, type_supplier = $4, brand = $5, department = $6, code = $7 WHERE id = $8',[price, description, stock, type_supplier, brand, department, code, id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

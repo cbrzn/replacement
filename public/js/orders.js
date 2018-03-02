@@ -101,7 +101,7 @@ function show_all_orders() {
             break;
             case 6:
               if (data.orders[i].comment === null) {
-                td.innerHTML = "No hay comentarios";
+                td.innerHTML = " ";
               } else {
                 td.innerHTML = data.orders[i].comment;
               }
