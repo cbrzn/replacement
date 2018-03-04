@@ -417,7 +417,7 @@ function order_info() {
       order.appendChild(erase);
       if (data.order.deliver_date === null) {
         //Create array of options to be added
-        var array = ["Decontado","3 dias","5 dias","7 dias"];
+        var array = ["Pre-pago","De contado","3 dias","5 dias","7 dias"];
 
         //Create and append select list
         var select_list = document.createElement("select");
@@ -428,15 +428,18 @@ function order_info() {
             var option = document.createElement("option");
             switch (i) {
               case 0:
-                option.value = "0"
+                option.value ="paid"
               break;
               case 1:
-                option.value = "3"
+                option.value = "0"
               break;
               case 2:
-                option.value = "5"
+                option.value = "3"
               break;
               case 3:
+                option.value = "5"
+              break;
+              case 4:
                 option.value = "7";
             }
             option.text = array[i];
@@ -451,12 +454,24 @@ function order_info() {
       }
       delivered_order.addEventListener('click', function() {
           var days = $('mySelect').value;
-          xhr.post('./order/deliver_done', {bill_number:data.order.bill_number, pay_days:days}, {'Content-Type':'application/json'}).then((data) => {
-            alert("Orden marcada como entregada");
-          });
+          if (days === "paid") {
+            var bill = data.order.bill_number;
+            xhr.post('./order/update_status', {bill_number:data.order.bill_number}, {'Content-Type':'application/json'}).then((data) => {
+              if (days === "paid") {
+                days = 0;
+                xhr.post('./order/deliver_done', {bill_number:bill, pay_days:days}, {'Content-Type':'application/json'}).then((data) => {
+                  console.log(data);
+                  alert("Orden marcada como pagada");
+                });
+              }
+            });
+          } else {
+            xhr.post('./order/deliver_done', {bill_number:data.order.bill_number, pay_days:days}, {'Content-Type':'application/json'}).then((data) => {
+              alert("Orden marcada como entregada");
+            });
+          }
       });
       update.addEventListener('click', function() {
-        //  var days = $('paydays').value;
           xhr.post('./order/update_status', {bill_number:data.order.bill_number}, {'Content-Type':'application/json'}).then((data) => {
             alert("Orden marcada como pagada");
           });

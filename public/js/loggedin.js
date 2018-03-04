@@ -56,7 +56,11 @@ function load_products() {
                 td.innerHTML = data.list[i].price;
               break;
               case 3:
+              if (data.list[i].stock < 0) {
+                td.innerHTML = "0";
+              } else {
                 td.innerHTML = data.list[i].stock;
+              }
               break;
               case 4:
                 td.innerHTML = data.list[i].brand;
@@ -128,7 +132,11 @@ function load_products() {
               td.innerHTML = data.list[i].price;
             break;
             case 3:
+            if (data.list[i].stock < 0) {
+              td.innerHTML = "0";
+            } else {
               td.innerHTML = data.list[i].stock;
+            }
             break;
             case 4:
               td.innerHTML = data.list[i].brand;
@@ -287,10 +295,11 @@ function load_products() {
               td.innerHTML = data.list[i].price;
             break;
             case 3:
+            if (data.list[i].stock < 0) {
+              td.innerHTML = "0";
+            } else {
               td.innerHTML = data.list[i].stock;
-              if (data.list[i].stock < 0) {
-                td.innerHTML = 0;
-              }
+            }
             break;
             case 4:
               td.innerHTML = data.list[i].brand;
@@ -387,10 +396,11 @@ function load_products() {
                          td.innerHTML = data.list[i].price;
                        break;
                        case 3:
+                       if (data.list[i].stock < 0) {
+                         td.innerHTML = "0";
+                       } else {
                          td.innerHTML = data.list[i].stock;
-                         if (data.list[i].stock < 0) {
-                           td.innerHTML = 0;
-                         }
+                       }
                        break;
                        case 4:
                          td.innerHTML = data.list[i].brand;
@@ -462,8 +472,11 @@ function load_products() {
                        td.innerHTML = data.list[i].price;
                      break;
                      case 3:
+                     if (data.list[i].stock < 0) {
+                       td.innerHTML = "0";
+                     } else {
                        td.innerHTML = data.list[i].stock;
-                     break;
+                     }                     break;
                      case 4:
                        td.innerHTML = data.list[i].brand;
                      break;
@@ -640,8 +653,11 @@ function load_products() {
                        td.innerHTML = data.list[i].price;
                      break;
                      case 3:
+                     if (data.list[i].stock < 0) {
+                       td.innerHTML = "0";
+                     } else {
                        td.innerHTML = data.list[i].stock;
-                     break;
+                     }                     break;
                      case 4:
                        td.innerHTML = data.list[i].brand;
                      break;
