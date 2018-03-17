@@ -8,6 +8,7 @@ function cart() {
     $('tbdy').remove();
   }
   xhr.get('./cart/product',{},{}).then((data)=> {
+    console.log(data);
     var tbl = $('table');
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
@@ -42,7 +43,26 @@ function cart() {
               td.innerHTML = data.list[i].product_name;
             break;
             case 1:
-              td.innerHTML = data.list[i].product_price;
+              var size = data.list[i].product_price.toString().length;
+              var number  = data.list[i].product_price.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 2:
+                    points.push(arr[n] + ",");
+                  break;
+                  case 5:
+                  case 8:
+                  case 11:
+                    points.push(arr[n] + ".");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 2:
               td.innerHTML = data.list[i].quantity;

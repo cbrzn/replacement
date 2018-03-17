@@ -44,51 +44,53 @@
           </nav>
         </nav>
       </div>
-          <h1><div id='title'>Todos los productos</div></h1>
-          <table id="table" border="3" style="width: 100%;">
-            <thead>
-              <tr id="tr">
-              </tr>
-            </thead>
-          </table>
-          <div id="search">
-            <select id="select_brand" style="display: none;"></select>
-          </div>
-          <div id="edit" style="display: none;" class="login-page">
-            <div class="login-form">
-              <div class="form">
-                <p>Codigo</p>
-                <input id="code" type="text" placeholder="codigo producto"></input>
-                <p>Precio</p>
-                <input id="precio" type="number" placeholder="precio"></input>
-                <p>Descripcion</p>
-                <input id="description" type="text" placeholder="descripcion"></input>
-                <p>Existencia</p>
-                <input id="stock" type="number" placeholder="existencia"></input>
-                <p>Puede ser facturado con existencia 0?<p>
-                <select id="type_supplier">
-                  <option value=true>Si</option>
-                  <option value=false>No</option>
-                  <option value="nothing" selected> No editar </option>
-                </select>
-                <p>Marca</p>
-                <select id="brand">
-                  <option value="not" selected> No editar </option>
-                </select>
-                <p>Departamento</p>
-                <select id="department">
-                  <option value="not_two" selected> No editar </option>
-                </select>
-                <button id="update">editar producto</button>
-               </div>
-             </div>
+      <h1><div id='title'>Productos</div></h1>
+      <div id='brand_name'></div>
+      <table id="table" border="3" style="width: 100%;">
+        <thead>
+          <tr id="tr">
+          </tr>
+        </thead>
+      </table>
+      <select id="brand"></select>
+      <button id="show">Buscar</button>
+      <select id="department" style="display: none;"></select>
+      <button id="show2" style="display: none;">Buscar</button>
+      <div id="edit" style="display: none;" class="login-page">
+        <div class="login-form">
+          <div class="form">
+            <p>Codigo</p>
+            <input id="code" type="text" placeholder="codigo producto"></input>
+            <p>Precio</p>
+            <input id="precio" type="number" placeholder="precio"></input>
+            <p>Descripcion</p>
+            <input id="description" type="text" placeholder="descripcion"></input>
+            <p>Existencia</p>
+            <input id="stock" type="number" placeholder="existencia"></input>
+            <p>Puede ser facturado con existencia 0?<p>
+            <select id="type_supplier">
+              <option value=true>Si</option>
+              <option value=false>No</option>
+              <option value="nothing" selected> No editar </option>
+            </select>
+            <p>Marca</p>
+            <select id="brands">
+              <option value="not" selected> No editar </option>
+            </select>
+            <p>Departamento</p>
+            <select id="departments">
+              <option value="not_two" selected> No editar </option>
+            </select>
+            <button id="update">editar producto</button>
            </div>
+         </div>
+       </div>
 
-           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-           <script src="./js/XHR.js"></script>
-           <script src="./js/check_header.js"></script>
-           <script src="./js/loggedin.js"></script>
+       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+       <script src="./js/XHR.js"></script>
+       <script src="./js/check_header.js"></script>
+       <script src="./js/loggedin.js"></script>
   </body>
 </html>

@@ -39,7 +39,7 @@ module.exports.show_all_products = () => {
 module.exports.show_price_list = (brand) => {
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.any('SELECT code, description, price, stock FROM products WHERE brand = $1',[brand]).then((data)=>{
+            obj.any('SELECT * FROM products WHERE brand = $1',[brand]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -54,10 +54,10 @@ module.exports.show_price_list = (brand) => {
     });
 }
 
-module.exports.show_departments_by_brand = (brand) =>{
+module.exports.show_departments_by_brand = (brand, department) =>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('select distinct on (department) department from products where brand = $1', [brand]).then((data)=>{
+          obj.any('select * from products where brand = $1 and department = $2', [brand, department]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

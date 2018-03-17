@@ -69,8 +69,20 @@ router.post('/show_products_by_stuff',(req,res)=>{
     });
 
 router.post('/prices', (req, res) => {
+  if (req.user === undefined) {
+    var user_id = null;
+  } else {
+    var user_id = req.user.id;
+  }
+  if (req.user !== undefined) {
+    if (req.user.admin === false) {
+      var admin = false;
+    } else {
+      var admin = true;
+    }
+  }
   product.show_price_list(req.body.brand).then((data)=> {
-    res.send({list:data});
+    res.send({list:data, id:user_id, admin:admin});
   }).catch((err) => {
     throw err;
   })

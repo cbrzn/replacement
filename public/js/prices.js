@@ -4,11 +4,15 @@ function $(id) {
 function show_prices() {
   var xhr = new XHR();
   var brand = $('brand').value;
+  var brand_name = document.createElement('h2');
+  brand_name.innerHTML = brand;
+  $('brand_name').appendChild(brand_name);
   $('tr').innerHTML = "";
   if ($('tbdy') != null) {
     $('tbdy').remove();
   }
   xhr.post('./product/prices',{brand:brand},{'Content-Type':'application/json'}).then((data)=> {
+    $('title').innerHTML = "Departamento";
     var tbl = $('table');
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
@@ -60,14 +64,13 @@ function show_prices() {
 
 function select() {
   var xhr = new XHR();
-  xhr.get('./product/stuff',{},{}).then((data)=> {
-      for (var i=0; i<data.product.length; i++) {
+  xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
+      $('title').innerHTML = "Marca";
+      for (var i=0; i<data.brands.length; i++) {
         var brand = document.createElement("option");
-        brand.value = data.product[i].brand;
-        brand.innerHTML = data.product[i].brand;
-        if (data.product[i].brand !== null) {
-          $('brand').appendChild(brand);
-        }
+        brand.value = data.brands[i].name;
+        brand.innerHTML = data.brands[i].name;
+        $('brand').appendChild(brand);
       }
   });
 }
