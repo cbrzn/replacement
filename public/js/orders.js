@@ -89,7 +89,7 @@ function show_all_orders() {
                     var days = millisBetween / millisecondsPerDay;
                     if (days > 0) {
                       td.innerHTML = days+" dia(s) vencidos";
-                      td.bgColor = "Red";
+                      td.style.color = "red";
                     }else {
                       td.innerHTML = "Pago a tiempo";
                     }

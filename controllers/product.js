@@ -1,7 +1,6 @@
 const express = require('express');
 let router = express.Router();
 let product = require('./../helpers/product_db');
-let stuff = require('./../helpers/stuff_db');
 
 
 router.get('/all',(req,res)=>{
@@ -11,7 +10,6 @@ router.get('/all',(req,res)=>{
     var user_id = req.user.id;
   }
   if (req.user !== undefined) {
-    console.log(req.user.admin);
     if (req.user.admin === false) {
       var admin = false;
     } else {
@@ -57,7 +55,6 @@ router.post('/show_products_by_stuff',(req,res)=>{
     var user_id = req.user.id;
   }
   if (req.user !== undefined) {
-    console.log(req.user.admin);
     if (req.user.admin === false) {
       var admin = false;
     } else {
@@ -69,23 +66,6 @@ router.post('/show_products_by_stuff',(req,res)=>{
         }).catch((err)=>{
             throw err;
         });
-    });
-
-
-router.get('/stuff', (req, res) => {
-  stuff.get_stuff().then((data)=>{
-      res.send({product:data});
-      }).catch((err)=> {
-          throw err;
-      });
-    });
-
-router.post('/add_stuff', (req, res) => {
-  stuff.add(req.body.brand, req.body.department).then((data)=>{
-      res.send({status:200});
-      }).catch((err)=> {
-          throw err;
-      });
     });
 
 router.post('/prices', (req, res) => {
@@ -119,7 +99,6 @@ router.get('/delete/:id', (req, res) => {
 });
 
 router.post('/update/', (req, res)=> {
-  console.log(req.body);
   product.update_product(req.body.price, req.body.description,  req.body.stock, req.body.type_supplier, req.body.brand, req.body.department, req.body.code, req.body.product_id).then((data)=> {
       res.send({msg:data});
       }).catch((err)=> {

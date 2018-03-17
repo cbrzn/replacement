@@ -53,7 +53,26 @@ function load_products() {
                 td.innerHTML = data.list[i].description;
               break;
               case 2:
-                td.innerHTML = data.list[i].price;
+                var size = data.list[i].price.toString().length;
+                var number  = data.list[i].price.toString();
+                var arr = number.split("").reverse();
+                var points = [];
+                for (var n=0; n<size; n++) {
+                  switch (n) {
+                    case 2:
+                      points.push(arr[n] + ",");
+                    break;
+                    case 5:
+                    case 8:
+                    case 11:
+                      points.push(arr[n] + ".");
+                    break;
+                    default:
+                      points.push(arr[n]);
+                    break;
+                  }
+                }
+                td.innerHTML = points.reverse().join("");
               break;
               case 3:
               if (data.list[i].stock < 0) {
@@ -70,12 +89,37 @@ function load_products() {
               break;
               case 6:
                 var button = document.createElement('button');
-                button.innerHTML = "Agregar";
+                var product_id = data.list[i].id;
+                td.setAttribute("id", i)
+                button.innerHTML = "Anadir";
                 td.appendChild(button);
-              break;
+                td.addEventListener('click', function() {
+                  var quantity = prompt("Cantidad a comprar: ");
+                  var reg = /^\d+$/;
+                  if (reg.test(quantity)) {
+                    var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                    if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
+                      alert("No hay producto en existencia")
+                    } else {
+                      xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
+                        if (data.msg === 200) {
+                          alert("Producto agregado");
+                          window.location.href = "./index.html";
+                        } else {
+                          alert("Producto ya esta agregado a carro de compras");
+                          window.location.href = "./index.html";
+                        }
+                      });
+                    }
+                } else if (quantity === null) {
+                  alert("Producto no anadido")
+              } else {
+                alert("Error al anadir producto a carro de compras. Debe ingresar un numero. Intente de nuevo");
               }
-
-              tr.appendChild(td)
+            });
+            break;
+            }
+            tr.appendChild(td)
           }
           tbdy.appendChild(tr);
       }
@@ -129,7 +173,26 @@ function load_products() {
               td.innerHTML = data.list[i].description;
             break;
             case 2:
-              td.innerHTML = data.list[i].price;
+              var size = data.list[i].price.toString().length;
+              var number  = data.list[i].price.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 2:
+                    points.push(arr[n] + ",");
+                  break;
+                  case 5:
+                  case 8:
+                  case 11:
+                    points.push(arr[n] + ".");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 3:
             if (data.list[i].stock < 0) {
@@ -148,7 +211,7 @@ function load_products() {
               var button = document.createElement('button');
               var product_id = data.list[i].id;
               td.setAttribute("id", i)
-              button.innerHTML = "Agregar";
+              button.innerHTML = "Anadir";
               td.appendChild(button);
               td.addEventListener('click', function() {
                 var quantity = prompt("Cantidad a comprar: ");
@@ -292,7 +355,26 @@ function load_products() {
               td.innerHTML = data.list[i].description;
             break;
             case 2:
-              td.innerHTML = data.list[i].price;
+              var size = data.list[i].price.toString().length;
+              var number  = data.list[i].price.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 2:
+                    points.push(arr[n] + ",");
+                  break;
+                  case 5:
+                  case 8:
+                  case 11:
+                    points.push(arr[n] + ".");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 3:
             if (data.list[i].stock < 0) {
@@ -393,7 +475,26 @@ function load_products() {
                          td.innerHTML = data.list[i].description;
                        break;
                        case 2:
-                         td.innerHTML = data.list[i].price;
+                         var size = data.list[i].price.toString().length;
+                         var number  = data.list[i].price.toString();
+                         var arr = number.split("").reverse();
+                         var points = [];
+                         for (var n=0; n<size; n++) {
+                           switch (n) {
+                             case 2:
+                               points.push(arr[n] + ",");
+                             break;
+                             case 5:
+                             case 8:
+                             case 11:
+                               points.push(arr[n] + ".");
+                             break;
+                             default:
+                               points.push(arr[n]);
+                             break;
+                           }
+                         }
+                         td.innerHTML = points.reverse().join("");
                        break;
                        case 3:
                        if (data.list[i].stock < 0) {
@@ -410,8 +511,34 @@ function load_products() {
                        break;
                        case 6:
                          var button = document.createElement('button');
-                         button.innerHTML = "Agregar";
+                         var product_id = data.list[i].id;
+                         td.setAttribute("id", i)
+                         button.innerHTML = "Anadir";
                          td.appendChild(button);
+                         td.addEventListener('click', function() {
+                           var quantity = prompt("Cantidad a comprar: ");
+                           var reg = /^\d+$/;
+                           if (reg.test(quantity)) {
+                             var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                             if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
+                               alert("No hay producto en existencia")
+                             } else {
+                               xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
+                                 if (data.msg === 200) {
+                                   alert("Producto agregado");
+                                   window.location.href = "./index.html";
+                                 } else {
+                                   alert("Producto ya esta agregado a carro de compras");
+                                   window.location.href = "./index.html";
+                                 }
+                               });
+                             }
+                         } else if (quantity === null) {
+                           alert("Producto no agregado")
+                         } else {
+                           alert("Error al anadir producto a carro de compras. Debe ingresar un numero. Intente de nuevo");
+                         }
+                       });
                        break;
                        }
 
@@ -469,14 +596,34 @@ function load_products() {
                        td.innerHTML = data.list[i].description;
                      break;
                      case 2:
-                       td.innerHTML = data.list[i].price;
+                       var size = data.list[i].price.toString().length;
+                       var number  = data.list[i].price.toString();
+                       var arr = number.split("").reverse();
+                       var points = [];
+                       for (var n=0; n<size; n++) {
+                         switch (n) {
+                           case 2:
+                             points.push(arr[n] + ",");
+                           break;
+                           case 5:
+                           case 8:
+                           case 11:
+                             points.push(arr[n] + ".");
+                           break;
+                           default:
+                             points.push(arr[n]);
+                           break;
+                         }
+                       }
+                       td.innerHTML = points.reverse().join("");
                      break;
                      case 3:
                      if (data.list[i].stock < 0) {
                        td.innerHTML = "0";
                      } else {
                        td.innerHTML = data.list[i].stock;
-                     }                     break;
+                     }
+                     break;
                      case 4:
                        td.innerHTML = data.list[i].brand;
                      break;
@@ -487,7 +634,7 @@ function load_products() {
                        var button = document.createElement('button');
                        var product_id = data.list[i].id;
                        td.setAttribute("id", i)
-                       button.innerHTML = "Agregar";
+                       button.innerHTML = "Anadir";
                        td.appendChild(button);
                        td.addEventListener('click', function() {
                          console.log(i)
@@ -650,14 +797,34 @@ function load_products() {
                        td.innerHTML = data.list[i].description;
                      break;
                      case 2:
-                       td.innerHTML = data.list[i].price;
+                       var size = data.list[i].price.toString().length;
+                       var number  = data.list[i].price.toString();
+                       var arr = number.split("").reverse();
+                       var points = [];
+                       for (var n=0; n<size; n++) {
+                         switch (n) {
+                           case 2:
+                             points.push(arr[n] + ",");
+                           break;
+                           case 5:
+                           case 8:
+                           case 11:
+                             points.push(arr[n] + ".");
+                           break;
+                           default:
+                             points.push(arr[n]);
+                           break;
+                         }
+                       }
+                       td.innerHTML = points.reverse().join("");
                      break;
                      case 3:
                      if (data.list[i].stock < 0) {
                        td.innerHTML = "0";
                      } else {
                        td.innerHTML = data.list[i].stock;
-                     }                     break;
+                     }
+                     break;
                      case 4:
                        td.innerHTML = data.list[i].brand;
                      break;

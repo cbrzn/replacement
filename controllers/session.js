@@ -30,7 +30,7 @@ router.post('/login', auth.isLogged,function(req, res, next) {
 
 
 router.post('/signup',auth.isLogged,function(req, res, next) {
-     if (user.add_user(req.body.username, req.body.email, req.body.password, req.body.name, req.body.lastname, req.body.zone)) {
+     if (user.add_user(req.body.email, req.body.password, req.body.name, req.body.lastname, req.body.zone)) {
        res.send({status:200});
      } else {
        res.send({status:"error"});
