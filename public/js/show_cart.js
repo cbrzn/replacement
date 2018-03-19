@@ -49,13 +49,10 @@ function cart() {
               var points = [];
               for (var n=0; n<size; n++) {
                 switch (n) {
-                  case 2:
+                  case 6:
+                  case 9:
+                  case 12:
                     points.push(arr[n] + ",");
-                  break;
-                  case 5:
-                  case 8:
-                  case 11:
-                    points.push(arr[n] + ".");
                   break;
                   default:
                     points.push(arr[n]);

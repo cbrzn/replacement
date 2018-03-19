@@ -61,13 +61,10 @@ function load_products_by_brands() {
                 var points = [];
                 for (var n=0; n<size; n++) {
                   switch (n) {
-                    case 2:
-                      points.push(arr[n] + ",");
-                    break;
                     case 5:
                     case 8:
                     case 11:
-                      points.push(arr[n] + ".");
+                      points.push(arr[n] + ",");
                     break;
                     default:
                       points.push(arr[n]);
@@ -170,13 +167,10 @@ function load_products_by_brands() {
                   var points = [];
                   for (var n=0; n<size; n++) {
                     switch (n) {
-                      case 2:
-                        points.push(arr[n] + ",");
-                      break;
                       case 5:
                       case 8:
                       case 11:
-                        points.push(arr[n] + ".");
+                        points.push(arr[n] + ",");
                       break;
                       default:
                         points.push(arr[n]);
@@ -339,13 +333,10 @@ function load_products_by_brands() {
                   var points = [];
                   for (var n=0; n<size; n++) {
                     switch (n) {
-                      case 2:
+                      case 6:
+                      case 9:
+                      case 12:
                         points.push(arr[n] + ",");
-                      break;
-                      case 5:
-                      case 8:
-                      case 11:
-                        points.push(arr[n] + ".");
                       break;
                       default:
                         points.push(arr[n]);
@@ -432,13 +423,10 @@ function load_products_by_brands() {
                     var points = [];
                     for (var n=0; n<size; n++) {
                       switch (n) {
-                        case 2:
+                        case 6:
+                        case 9:
+                        case 12:
                           points.push(arr[n] + ",");
-                        break;
-                        case 5:
-                        case 8:
-                        case 11:
-                          points.push(arr[n] + ".");
                         break;
                         default:
                           points.push(arr[n]);
@@ -541,13 +529,10 @@ function load_products_by_brands() {
                       var points = [];
                       for (var n=0; n<size; n++) {
                         switch (n) {
-                          case 2:
+                          case 6:
+                          case 9:
+                          case 12:
                             points.push(arr[n] + ",");
-                          break;
-                          case 5:
-                          case 8:
-                          case 11:
-                            points.push(arr[n] + ".");
                           break;
                           default:
                             points.push(arr[n]);
@@ -710,13 +695,10 @@ function load_products_by_brands() {
                       var points = [];
                       for (var n=0; n<size; n++) {
                         switch (n) {
-                          case 2:
+                          case 6:
+                          case 9:
+                          case 12:
                             points.push(arr[n] + ",");
-                          break;
-                          case 5:
-                          case 8:
-                          case 11:
-                            points.push(arr[n] + ".");
                           break;
                           default:
                             points.push(arr[n]);
@@ -741,14 +723,6 @@ function load_products_by_brands() {
            }
           });
         };
-
-
-
-
-
-
-
-
 
 function delete_product(id) {
   let xhr = new XHR();
@@ -803,17 +777,5 @@ function second_function() {
   });
 }
 
-function stuff() {
-  var xhr = new XHR();
-  xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
-      for (var i=0; i<data.brands.length; i++) {
-        var brand = document.createElement("option");
-        brand.value = data.brands[i].name;
-        brand.innerHTML = data.brands[i].name;
-        $('brand').appendChild(brand);
-      }
-  });
-}
-addEventListener('load', stuff);
 $('show').addEventListener('click', load_products_by_brands)
 $('show2').addEventListener('click', load_products_by_departments)
