@@ -12,7 +12,6 @@ function log(){
           }
           $('logout').style.display = "block";
           $('order').style.display = "block";
-          $('price').style.display = "block";
           $('logout').addEventListener('click', function() {
              xhr.get('./logout',{},{}).then((data) => {
                if (data.status == "Bye!") {
