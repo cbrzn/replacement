@@ -2,14 +2,46 @@ function $(id) {
     return document.getElementById(id);
 };
 
+var breakpoint = {};
+var title = $('title')
+var small_title = $('small_title')
+
+breakpoint.refreshValue = function () {
+  this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
+  console.log(breakpoint.value)
+};
+
+function responsiveness(){
+  switch(breakpoint.value) {
+              case 'smartphone':
+                title.setAttribute('class', '')
+                title.innerHTML = "";
+                small_title.setAttribute('class', 'display-4 col-4 col-md-4  d-inline  bg-dark text-white responsive-display')
+              break;
+              case 'tablet':
+                title.setAttribute('class', '')
+                title.innerHTML = "";
+                small_title.setAttribute('class', 'display-4 col-4 col-md-4  d-inline  bg-dark text-white responsive-display')
+              break;
+              case 'desktop':
+                small_title.setAttribute('class', '')
+                small_title.innerHTML = "";
+                title.setAttribute('class', ' display-3 col-4 col-md-4 mb-0  d-inline  bg-dark text-white ')
+              break;
+              default:
+                small_title.setAttribute('class', '')
+                small_title.innerHTML = "";
+                title.setAttribute('class', ' display-3 col-4 col-md-4 mb-0  d-inline  bg-dark text-white ')
+          }
+}
+
+
 function show_all_orders() {
   let xhr = new XHR();
   xhr.get('./order/all',{},{}).then((data)=> {
     $('searching').style.display = "block";
     var tbl = $('table');
     tbl.setAttribute("id", "table");
-    tbl.style.width = '100%';
-    tbl.setAttribute("border", "3");
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
     for (var i=0; i < 8; i++) {
@@ -59,28 +91,7 @@ function show_all_orders() {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-            console.log(data.orders[i])
-            if (data.orders[i].total == null) {
-              td.innerHTML = "";
-            } else {
-              var size = data.orders[i].total.toString().length;
-              var number  = data.orders[i].total.toString();
-              var arr = number.split("").reverse();
-              var points = [];
-              for (var n=0; n<size; n++) {
-                switch (n) {
-                  case 6:
-                  case 9:
-                  case 12:
-                    points.push(arr[n] + ",");
-                  break;
-                  default:
-                    points.push(arr[n]);
-                  break;
-                }
-              }
-              td.innerHTML = points.reverse().join("");
-            }
+              td.innerHTML = data.orders[i].total;
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));
@@ -151,8 +162,6 @@ function show_specific_orders() {
   xhr.post('./order/tag_search',{value:value},{'Content-Type':'application/json'}).then((data)=> {
     var tbl = $('table');
     tbl.setAttribute("id", "table");
-    tbl.style.width = '100%';
-    tbl.setAttribute("border", "3");
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
     for (var i = 0; i < data.orders.length; i++) {
@@ -171,23 +180,7 @@ function show_specific_orders() {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-            var size = data.orders[i].total.toString().length;
-            var number  = data.orders[i].total.toString();
-            var arr = number.split("").reverse();
-            var points = [];
-            for (var n=0; n<size; n++) {
-                switch (n) {
-                  case 6:
-                  case 9:
-                  case 12:
-                    points.push(arr[n] + ",");
-                  break;
-                  default:
-                    points.push(arr[n]);
-                  break;
-                }
-              }
-              td.innerHTML = points.reverse().join("");
+              td.innerHTML = data.orders[i].total;
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));
@@ -253,8 +246,6 @@ function show_user_orders(id) {
   xhr.get(`./order/user/${id}`,{},{}).then((data)=> {
     var tbl = $('table');
     tbl.setAttribute("id", "table");
-    tbl.style.width = '100%';
-    tbl.setAttribute("border", "3");
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
     for (var i=0; i < 8; i++) {
@@ -304,23 +295,7 @@ function show_user_orders(id) {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-              var size = data.orders[i].total.toString().length;
-              var number  = data.orders[i].total.toString();
-              var arr = number.split("").reverse();
-              var points = [];
-              for (var n=0; n<size; n++) {
-                switch (n) {
-                  case 6:
-                  case 9:
-                  case 12:
-                    points.push(arr[n] + ",");
-                  break;
-                  default:
-                    points.push(arr[n]);
-                  break;
-                }
-              }
-              td.innerHTML = points.reverse().join("");
+              td.innerHTML = data.orders[i].total;
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));
@@ -635,5 +610,9 @@ function check_admin() {
     }
   });
 }
+
+//making things beautiful:
+breakpoint.refreshValue()
+responsiveness()
 
 addEventListener('load', check_admin);
