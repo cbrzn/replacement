@@ -59,7 +59,28 @@ function show_all_orders() {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-              td.innerHTML = data.orders[i].total;
+            console.log(data.orders[i])
+            if (data.orders[i].total == null) {
+              td.innerHTML = "";
+            } else {
+              var size = data.orders[i].total.toString().length;
+              var number  = data.orders[i].total.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
+            }
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));
@@ -150,7 +171,23 @@ function show_specific_orders() {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-              td.innerHTML = data.orders[i].total;
+            var size = data.orders[i].total.toString().length;
+            var number  = data.orders[i].total.toString();
+            var arr = number.split("").reverse();
+            var points = [];
+            for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));
@@ -267,7 +304,23 @@ function show_user_orders(id) {
               td.innerHTML = data.orders[i].first_name+" "+data.orders[i].last_name;
             break;
             case 3:
-              td.innerHTML = data.orders[i].total;
+              var size = data.orders[i].total.toString().length;
+              var number  = data.orders[i].total.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 4:
               var billing_date = data.orders[i].billing_date.substring(0, data.orders[i].billing_date.indexOf('T'));

@@ -5,6 +5,7 @@ function sendFile(){
   let xhr = new XHR();
     let formData = new FormData();
     let precio = $("precio").value;
+    precio = precio.replace(/,/g , ".");
     let description = $("description").value;
     let stock = $("stock").value;
     let type_supplier = $("type_supplier").value;

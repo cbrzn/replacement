@@ -61,9 +61,9 @@ function load_products_by_brands() {
                 var points = [];
                 for (var n=0; n<size; n++) {
                   switch (n) {
-                    case 5:
-                    case 8:
-                    case 11:
+                    case 6:
+                    case 9:
+                    case 12:
                       points.push(arr[n] + ",");
                     break;
                     default:
@@ -90,7 +90,7 @@ function load_products_by_brands() {
                   var quantity = prompt("Cantidad a comprar: ");
                   var reg = /^\d+$/;
                   if (reg.test(quantity)) {
-                    var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                    var total = data.list[this.id].price * quantity;
                     if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                       alert("No hay producto en existencia")
                     } else {
@@ -167,9 +167,9 @@ function load_products_by_brands() {
                   var points = [];
                   for (var n=0; n<size; n++) {
                     switch (n) {
-                      case 5:
-                      case 8:
-                      case 11:
+                      case 6:
+                      case 9:
+                      case 12:
                         points.push(arr[n] + ",");
                       break;
                       default:
@@ -196,11 +196,10 @@ function load_products_by_brands() {
                     var quantity = prompt("Cantidad a comprar: ");
                     var reg = /^\d+$/;
                     if (reg.test(quantity)) {
-                      var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                      var total = data.list[this.id].price * quantity;
                       if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                         alert("No hay producto en existencia")
                       } else {
-                        console.log(data.list[this.id])
                         xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
                           if (data.msg === 200) {
                             alert("Producto agregado");
@@ -452,7 +451,7 @@ function load_products_by_brands() {
                       var quantity = prompt("Cantidad a comprar: ");
                       var reg = /^\d+$/;
                       if (reg.test(quantity)) {
-                        var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                        var total = data.list[this.id].price * quantity;
                         if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                           alert("No hay producto en existencia")
                         } else {
@@ -558,7 +557,7 @@ function load_products_by_brands() {
                         var quantity = prompt("Cantidad a comprar: ");
                         var reg = /^\d+$/;
                         if (reg.test(quantity)) {
-                          var total = parseInt(data.list[this.id].price) * parseInt(quantity);
+                          var total = data.list[this.id].price * quantity;
                           if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                             alert("No hay producto en existencia")
                           } else {

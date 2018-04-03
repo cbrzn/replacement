@@ -65,7 +65,23 @@ function cart() {
               td.innerHTML = data.list[i].quantity;
             break;
             case 3:
-              td.innerHTML = data.list[i].total;
+              var size = data.list[i].total.toString().length;
+              var number  = data.list[i].total.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+              td.innerHTML = points.reverse().join("");
             break;
             case 4:
               td.setAttribute('id', data.list[i].product_id)
@@ -88,30 +104,29 @@ function cart() {
 
   var total = 0;
   for (var i=0; i<data.list.length; i++) {
-  total += data.list[i].total;
+    total += +data.list[i].total;
   }
   var arr_names = [];
   for (var i=0; i<data.list.length; i++) {
-  arr_names.push(data.list[i].product_name);
+    arr_names.push(data.list[i].product_name);
   }
   var arr_quantity = [];
   for (var i=0; i<data.list.length; i++) {
-  arr_quantity.push(data.list[i].quantity);
+    arr_quantity.push(data.list[i].quantity);
   }
   var arr_price = [];
   for (var i=0; i<data.list.length; i++) {
-  arr_price.push(data.list[i].product_price);
+    arr_price.push(data.list[i].product_price);
   }
   var arr_id = [];
   for (var i=0; i<data.list.length; i++) {
-  arr_id.push(data.list[i].product_id);
+    arr_id.push(data.list[i].product_id);
   }
   var user_name = data.session.name;
   var user_lastname = data.session.last_name;
   var user_id = data.session.id;
   $('send_card').addEventListener('click', function() {
       xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname, products_name:arr_names, total:total, quantity:arr_quantity, price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
-        console.log(data);
         if (data.sent === true) {
           alert("Pedido enviado")
         } else {
