@@ -54,10 +54,10 @@ module.exports.show_price_list = (brand) => {
     });
 }
 
-module.exports.show_departments_by_brand = (brand, department) =>{
+module.exports.show_departments_by_brand = (brand) =>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('select * from products where brand = $1 and department = $2', [brand, department]).then((data)=>{
+          obj.any('select distinct on (department) department from products where brand = $1', [brand]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

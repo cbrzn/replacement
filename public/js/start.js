@@ -56,20 +56,20 @@ function responsiveness(){
     mybutton.appendChild(erase_icon)
     return mybutton
   }
- 
+
 
   const editButton = (mybutton)=>{
     var edit_icon = document.createElement('i');
     mybutton.setAttribute('class','btn btn-primary pl-5 pr-5')
     edit_icon.setAttribute('class','ion-icon ion-edit pl-1 ml-2')
-    edit_icon.setAttribute('style','font-size:22px;color:white') 
+    edit_icon.setAttribute('style','font-size:22px;color:white')
     mybutton.innerHTML = "  Editar";
     mybutton.appendChild(edit_icon)
     return mybutton
 
   }
   //bitch
-  
+
 
 
 
@@ -77,7 +77,8 @@ function responsiveness(){
 function load_products_by_brands() {
   var xhr = new XHR();
   second_function();
-   brand = $('brand').value;
+  $('department').innerHTML = "";
+  brand = $('brand').value;
   xhr.post('./product/prices',{brand:brand},{'Content-Type':'application/json'}).then((data)=> {
     var br = document.createElement('br')
     var brand_name = document.createElement('h3');
@@ -88,21 +89,21 @@ function load_products_by_brands() {
               case 'smartphone':
                 var brand_name = document.createElement('h3');
                 $('small_search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline p-2 col')  
+                brand_name.setAttribute('class', 'd-inline p-2 col')
                 brand_name.innerHTML = `Marca: ${brand}`;
                 $('small_search_by').appendChild(brand_name);
               break;
               case 'tablet':
                 var brand_name = document.createElement('h3');
                 $('small_search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline p-2 col')  
+                brand_name.setAttribute('class', 'd-inline p-2 col')
                 brand_name.innerHTML = `Marca: ${brand}`;
                 $('small_search_by').appendChild(brand_name);
               break;
               case 'desktop':
                 var brand_name = document.createElement('h3');
                 $('search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 pl-2')  
+                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 pl-2')
                 brand_name.innerHTML = `Marca: ${brand}`;
                 $('search_by').appendChild(brand_name);
 
@@ -110,14 +111,14 @@ function load_products_by_brands() {
               default:
                 var brand_name = document.createElement('h3');
                 $('search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 p-2')  
+                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 p-2')
                 brand_name.innerHTML = `Marca: ${brand}`;
                 $('search_by').appendChild(brand_name);
           }
 
 
     /*$('search_by').innerHTML = ""
-    brand_name.setAttribute('class', 'd-inline p-2 bg-dark text-white')  
+    brand_name.setAttribute('class', 'd-inline p-2 bg-dark text-white')
     brand_name.innerHTML = `Marca: ${brand}`;
     $('search_by').appendChild(brand_name);  */
 
@@ -130,7 +131,6 @@ function load_products_by_brands() {
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id', 'tbdy')
     if (data.id !== null && data.admin === false) {
-      console.log("a");
         for (var i=0; i < 5; i++) {
             var tr = $('table').tHead.children[0], th = document.createElement('th');
             th.setAttribute('scope','col')
@@ -496,21 +496,21 @@ function load_products_by_brands() {
 
         switch(breakpoint.value) {
               case 'smartphone':
-                var department_name = document.createElement('h3');     
+                var department_name = document.createElement('h3');
                 department_name.setAttribute('id', 'this');
                 department_name.innerHTML = `Departamento: ${department}`;
                 department_name.setAttribute('class', 'd-inline p-2 col');
                 $('small_search_by').appendChild(department_name);
               break;
               case 'tablet':
-                var department_name = document.createElement('h3');   
+                var department_name = document.createElement('h3');
                 department_name.setAttribute('id', 'this');
                 department_name.innerHTML = `Departamento: ${department}`;
                 department_name.setAttribute('class', 'd-inline p-2 col');
                 $('small_search_by').appendChild(department_name);
               break;
               case 'desktop':
-                var department_name = document.createElement('h3');       
+                var department_name = document.createElement('h3');
                 department_name.setAttribute('id', 'this');
                 department_name.innerHTML = `- Departamento: ${department}`;
                 department_name.setAttribute('class', 'd-inline  bg-dark text-white pb-3 pl-2 pr-2 ');
@@ -518,25 +518,25 @@ function load_products_by_brands() {
 
               break;
               default:
-                var department_name = document.createElement('h3');       
+                var department_name = document.createElement('h3');
                 department_name.setAttribute('id', 'this');
                 department_name.innerHTML = `- Departamento: ${department}`;
                 department_name.setAttribute('class', 'd-inline  bg-dark text-white pb-3 pl-2 pr-2');
                 $('search_by').appendChild(department_name);
           }
-        /*var department_name = document.createElement('h3');       
+        /*var department_name = document.createElement('h3');
         department_name.setAttribute('id', 'this');
         department_name.innerHTML = `- Departamento: ${department}`;
         department_name.setAttribute('class', 'd-inline p-2 bg-dark text-white');
         $('search_by').appendChild(department_name);
 
         var department_name = document.createElement('h3');
-        department_name.setAttribute('class', 'row')     
+        department_name.setAttribute('class', 'row')
         department_name.setAttribute('id', 'this');
         department_name.innerHTML = `- Departamento: ${department}`;
         department_name.setAttribute('class', 'd-inline p-2 bg-dark text-white');
         $('small_search_by').appendChild(department_name);*/
-       
+
         $('tr').innerHTML = "";
         if ($('tbdy') != null) {
           $('tbdy').remove();
@@ -956,15 +956,16 @@ function second_function() {
   //$('brand_input_group').style.display = 'none';
   //$('show').style.display = 'none';
   //$('brand').style.display = 'none';
-  xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
-    $('department').innerHTML="";
+  var b = $('brand').value;
+  xhr.get(`./product/departments_by_brand/${b}`,{},{}).then((data)=> {
     for (var i=0; i<data.departments.length; i++) {
       var department_option = document.createElement("option");
-      department_option.value = data.departments[i].name;
-      department_option.innerHTML = data.departments[i].name;
+      console.log(data.departments[i].department)
+      department_option.value = data.departments[i].department;
+      department_option.innerHTML = data.departments[i].department;
       $('department').appendChild(department_option);
     }
-    
+
   });
 }
 
