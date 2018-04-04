@@ -16,6 +16,7 @@ function sendFile(){
   let xhr = new XHR();
     let formData = new FormData();
     let precio = $("precio").value;
+    precio = precio.replace(/,/g , ".");
     let description = $("description").value;
     let stock = $("stock").value;
     let type_supplier = $("type_supplier").value;
@@ -66,14 +67,14 @@ function select() {
 
       $('add_stuff_btn').addEventListener('click', function() {
           //fuck all this
-          
+
           //till here
             //  $('message_modal_button').setAttribute('id', 'new_add');
-          //esta linea de abajo no va 
-              
-              
+          //esta linea de abajo no va
+
+
           //esto si
-              
+
               var add_stuff_div= document.createElement('div')
               add_stuff_div.setAttribute('class','col')
               var firstspan = document.createElement('span')
@@ -100,12 +101,12 @@ function select() {
               $('message_modal_body').appendChild(new_dept)
 
 
-              
-              
+
+
 
               $('close_upload_modal').click()
               $('trigger_message_modal').click()
-              
+
 
               $('message_modal_button').addEventListener('click', () => {
 
@@ -143,7 +144,7 @@ function select() {
                  });
               });
              }
-              
+
             })
 
          });
@@ -164,7 +165,7 @@ function select() {
                             switch(i) {
                               case 0:
                                 th.innerHTML = 'Marca';
-                                
+
                               break;
                               case 1:
                                 th.innerHTML = 'Departamento';
@@ -178,7 +179,7 @@ function select() {
                             buttons =[]
                             for (var i = 0; i < size; i++) {
                                 var tr = document.createElement('tr');
-                                
+
                                 tr.setAttribute('id', i);
                                 for (var j = 0; j < 2; j++) {
 
@@ -245,9 +246,9 @@ function select() {
                         $('message_modal_body').innerHTML= ""
                         $('message_modal_button').setAttribute('style','display:none;')
                         $('message_modal_body').appendChild(tbl)
-          }).then( () => { 
+          }).then( () => {
             $('close_upload_modal').click()
-            
+
 
           } ).then(()=> { $('trigger_message_modal').click() })
         });

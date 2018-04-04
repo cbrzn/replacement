@@ -126,7 +126,23 @@ function cart() {
               td.innerHTML = data.list[i].quantity;
             break;
             case 3:
-              td.innerHTML = data.list[i].total;
+              var size = data.list[i].total.toString().length;
+              var number  = data.list[i].total.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+            td.innerHTML = points.reverse().join("");
             break;
             case 4:
               td.setAttribute('id', data.list[i].product_id)
