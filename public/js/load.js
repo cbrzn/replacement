@@ -165,7 +165,6 @@ function select() {
                             switch(i) {
                               case 0:
                                 th.innerHTML = 'Marca';
-
                               break;
                               case 1:
                                 th.innerHTML = 'Departamento';

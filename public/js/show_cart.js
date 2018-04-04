@@ -50,8 +50,6 @@ const sendCartButton = (mybutton)=>{
 
 function cart() {
 
-
-  console.log('idk man')
   var xhr = new XHR();
   $('tr').innerHTML = "";
 
@@ -167,7 +165,7 @@ function cart() {
 
   var total = 0;
   for (var i=0; i<data.list.length; i++) {
-  total += data.list[i].total;
+  total += +data.list[i].total;
   }
   var arr_names = [];
   for (var i=0; i<data.list.length; i++) {
@@ -191,22 +189,23 @@ function cart() {
   var user_id = data.session.id;
 
 
+  send_cart.addEventListener('click', function() {
+        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
+          products_name:arr_names, total:total, quantity:arr_quantity,
+          price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
+          if (data.sent === true) {
+            alert("Pedido enviado")
+          } else {
+            alert("Error al enviar el pedido. Por favor intente de nuevo")
+          }
+        })
+
+    })
+
  })
 
 }
 
-send_cart.addEventListener('click', function() {
-      xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
-        products_name:arr_names, total:total, quantity:arr_quantity,
-        price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
-        if (data.sent === true) {
-          alert("Pedido enviado")
-        } else {
-          alert("Error al enviar el pedido. Por favor intente de nuevo")
-        }
-      })
-
-  })
 
 
 
