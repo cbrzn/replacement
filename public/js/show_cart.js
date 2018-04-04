@@ -50,6 +50,8 @@ const sendCartButton = (mybutton)=>{
 
 function cart() {
 
+
+  console.log('idk man')
   var xhr = new XHR();
   $('tr').innerHTML = "";
 
@@ -124,23 +126,7 @@ function cart() {
               td.innerHTML = data.list[i].quantity;
             break;
             case 3:
-              var size = data.list[i].total.toString().length;
-              var number  = data.list[i].total.toString();
-              var arr = number.split("").reverse();
-              var points = [];
-              for (var n=0; n<size; n++) {
-                switch (n) {
-                  case 6:
-                  case 9:
-                  case 12:
-                    points.push(arr[n] + ",");
-                  break;
-                  default:
-                    points.push(arr[n]);
-                  break;
-                }
-              }
-            td.innerHTML = points.reverse().join("");
+              td.innerHTML = data.list[i].total;
             break;
             case 4:
               td.setAttribute('id', data.list[i].product_id)
@@ -165,7 +151,7 @@ function cart() {
 
   var total = 0;
   for (var i=0; i<data.list.length; i++) {
-  total += +data.list[i].total;
+  total += data.list[i].total;
   }
   var arr_names = [];
   for (var i=0; i<data.list.length; i++) {
@@ -189,23 +175,22 @@ function cart() {
   var user_id = data.session.id;
 
 
-  send_cart.addEventListener('click', function() {
-        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
-          products_name:arr_names, total:total, quantity:arr_quantity,
-          price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
-          if (data.sent === true) {
-            alert("Pedido enviado")
-          } else {
-            alert("Error al enviar el pedido. Por favor intente de nuevo")
-          }
-        })
-
-    })
-
  })
 
 }
 
+send_cart.addEventListener('click', function() {
+      xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
+        products_name:arr_names, total:total, quantity:arr_quantity,
+        price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
+        if (data.sent === true) {
+          alert("Pedido enviado")
+        } else {
+          alert("Error al enviar el pedido. Por favor intente de nuevo")
+        }
+      })
+
+  })
 
 
 

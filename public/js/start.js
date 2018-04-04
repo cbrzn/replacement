@@ -4,36 +4,6 @@ function $(id) {
 var brand;
 var breakpoint = {};
 var title = $('title')
-var small_title = $('small_title')
-
-breakpoint.refreshValue = function () {
-  this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
-  console.log(breakpoint.value)
-};
-
-function responsiveness(){
-  switch(breakpoint.value) {
-              case 'smartphone':
-                title.setAttribute('class', '')
-                title.innerHTML = "";
-                small_title.setAttribute('class', 'display-4 col-4 col-md-4  d-inline  bg-dark text-white responsive-display')
-              break;
-              case 'tablet':
-                title.setAttribute('class', '')
-                title.innerHTML = "";
-                small_title.setAttribute('class', 'display-4 col-4 col-md-4  d-inline  bg-dark text-white responsive-display')
-              break;
-              case 'desktop':
-                small_title.setAttribute('class', '')
-                small_title.innerHTML = "";
-                title.setAttribute('class', ' display-3 col-4 col-md-4 mb-0  d-inline  bg-dark text-white p-2')
-              break;
-              default:
-                small_title.setAttribute('class', '')
-                small_title.innerHTML = "";
-                title.setAttribute('class', ' display-3 col-4 col-md-4 mb-0  d-inline  bg-dark text-white p-2')
-          }
-}
 
 
   //making your buttons beautiful
@@ -85,42 +55,11 @@ function load_products_by_brands() {
    // brand_name.setAttribute('id','this_brand')
 
 
-    switch(breakpoint.value) {
-              case 'smartphone':
-                var brand_name = document.createElement('h3');
-                $('small_search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline p-2 col')
-                brand_name.innerHTML = `Marca: ${brand}`;
-                $('small_search_by').appendChild(brand_name);
-              break;
-              case 'tablet':
-                var brand_name = document.createElement('h3');
-                $('small_search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline p-2 col')
-                brand_name.innerHTML = `Marca: ${brand}`;
-                $('small_search_by').appendChild(brand_name);
-              break;
-              case 'desktop':
-                var brand_name = document.createElement('h3');
-                $('search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 pl-2')
-                brand_name.innerHTML = `Marca: ${brand}`;
-                $('search_by').appendChild(brand_name);
 
-              break;
-              default:
-                var brand_name = document.createElement('h3');
-                $('search_by').innerHTML = ""
-                brand_name.setAttribute('class', 'd-inline bg-dark text-white pb-3 p-2')
-                brand_name.innerHTML = `Marca: ${brand}`;
-                $('search_by').appendChild(brand_name);
-          }
-
-
-    /*$('search_by').innerHTML = ""
-    brand_name.setAttribute('class', 'd-inline p-2 bg-dark text-white')
+    $('search_by').innerHTML = ""
+    brand_name.setAttribute('class', 'd-inline')
     brand_name.innerHTML = `Marca: ${brand}`;
-    $('search_by').appendChild(brand_name);  */
+    $('search_by').appendChild(brand_name);  
 
 
     $('tr').innerHTML = "";
@@ -173,9 +112,9 @@ function load_products_by_brands() {
                 var points = [];
                 for (var n=0; n<size; n++) {
                   switch (n) {
-                    case 6:
+                    case 5:
                     case 8:
-                    case 12:
+                    case 11:
                       points.push(arr[n] + ",");
                     break;
                     default:
@@ -209,7 +148,7 @@ function load_products_by_brands() {
                   var quantity = prompt("Cantidad a comprar: ");
                   var reg = /^\d+$/;
                   if (reg.test(quantity)) {
-                    var total = data.list[this.id].price * quantity;
+                    var total = parseInt(data.list[this.id].price) * parseInt(quantity);
                     if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                       alert("No hay producto en existencia")
                     } else {
@@ -286,9 +225,9 @@ function load_products_by_brands() {
                   var points = [];
                   for (var n=0; n<size; n++) {
                     switch (n) {
-                      case 6:
-                      case 9:
-                      case 12:
+                      case 5:
+                      case 8:
+                      case 11:
                         points.push(arr[n] + ",");
                       break;
                       default:
@@ -316,7 +255,7 @@ function load_products_by_brands() {
                     var quantity = prompt("Cantidad a comprar: ");
                     var reg = /^\d+$/;
                     if (reg.test(quantity)) {
-                      var total = data.list[this.id].price * quantity;
+                      var total = parseInt(data.list[this.id].price) * parseInt(quantity);
                       if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                         alert("No hay producto en existencia")
                       } else {
@@ -362,12 +301,21 @@ function load_products_by_brands() {
                   //button.innerHTML = "Editar";
                   td.appendChild(edit_button1);
                   td.addEventListener('click', function() {
-                    select();
-                    $('edit').style.display = "block";
-                    $('table').style.display = "none";
-                    $('title').innerHTML = "Editar producto";
+                    //select();
+                    //$('trigger_message_modal').click();
+
+                    //UPDATE MODAL CREATION
+                    var update_modal_body = $('upload_modal_body')
+                    $('message_modal_body').innerHTML = ""
+                    $('message_modal_body').appendChild(update_modal_body)
+                    $('message_modal_title').innerHTML = "Editar producto"
+                    $('message_modal_button').innerHTML = "Editar y guardar"
+                    //$('edit').style.display = "block";
+                    //$('table').style.display = "none";
+                    //$('title').innerHTML = "Editar producto";
                     var price = $('precio');
                     price.setAttribute('placeholder', data.list[this.id].price);
+                    //price.innerHTML = data.list[this.id].price
                     var description = $('description');
                     description.setAttribute('placeholder', data.list[this.id].description);
                     var code = $('code');
@@ -376,11 +324,12 @@ function load_products_by_brands() {
                     stock.setAttribute('placeholder', data.list[this.id].stock);
                     var type_supplier = $('type_supplier');
                     type_supplier.setAttribute('placeholder', data.list[this.id].type_supplier);
-                    var brand = $('brand').value;
-                    var department = $('department').value;
+                    var brand = $('brand_select').value;
+                    var department = $('department_select').value;
                     var product_id = data.list[this.id].id;
                     var td_id = this.id;
-                    $('update').addEventListener('click', function() {
+                    //$('update').addEventListener('click', function() {
+                    $('message_modal_button').addEventListener('click', function() {
                       if (price.value === "") {
                         price.value = data.list[td_id].price;
                       }
@@ -405,8 +354,9 @@ function load_products_by_brands() {
                      var producto = data.list[td_id].id;
                       xhr.post(`./product/update`,{price:price.value, description:description.value, stock:stock.value, type_supplier:type_supplier.value, brand:brand, department:department, code:code.value, product_id:producto}, {'Content-Type':'application/json'}).then((data)=>{
                         alert("Producto editado con exito")
-                      });
+                      }).then(()=> {$('close_message_modal').click()})
                     });
+                    $('trigger_message_modal').click();
                  });
                 break;
                 }
@@ -494,43 +444,13 @@ function load_products_by_brands() {
         }
 
 
-        switch(breakpoint.value) {
-              case 'smartphone':
-                var department_name = document.createElement('h3');
-                department_name.setAttribute('id', 'this');
-                department_name.innerHTML = `Departamento: ${department}`;
-                department_name.setAttribute('class', 'd-inline p-2 col');
-                $('small_search_by').appendChild(department_name);
-              break;
-              case 'tablet':
-                var department_name = document.createElement('h3');
-                department_name.setAttribute('id', 'this');
-                department_name.innerHTML = `Departamento: ${department}`;
-                department_name.setAttribute('class', 'd-inline p-2 col');
-                $('small_search_by').appendChild(department_name);
-              break;
-              case 'desktop':
-                var department_name = document.createElement('h3');
-                department_name.setAttribute('id', 'this');
-                department_name.innerHTML = `- Departamento: ${department}`;
-                department_name.setAttribute('class', 'd-inline  bg-dark text-white pb-3 pl-2 pr-2 ');
-                $('search_by').appendChild(department_name);
-
-              break;
-              default:
-                var department_name = document.createElement('h3');
-                department_name.setAttribute('id', 'this');
-                department_name.innerHTML = `- Departamento: ${department}`;
-                department_name.setAttribute('class', 'd-inline  bg-dark text-white pb-3 pl-2 pr-2');
-                $('search_by').appendChild(department_name);
-          }
-        /*var department_name = document.createElement('h3');
+        var department_name = document.createElement('h3');
         department_name.setAttribute('id', 'this');
         department_name.innerHTML = `- Departamento: ${department}`;
-        department_name.setAttribute('class', 'd-inline p-2 bg-dark text-white');
+        department_name.setAttribute('class', 'd-inline');
         $('search_by').appendChild(department_name);
 
-        var department_name = document.createElement('h3');
+        /*var department_name = document.createElement('h3');
         department_name.setAttribute('class', 'row')
         department_name.setAttribute('id', 'this');
         department_name.innerHTML = `- Departamento: ${department}`;
@@ -611,18 +531,12 @@ function load_products_by_brands() {
 
                     var product_id = data.list[i].id;
                     td.setAttribute("id", i)
-                    //button.innerHTML = "Anadir al ";
-                    //let buy_icon = document.createElement('i');
-                    //button.setAttribute('class','btn btn-success pl-5 pr-5')
-                   // buy_icon.setAttribute('class','ion-icon ion-android-cart pl-1')
-                   // buy_icon.setAttribute('style','font-size:22px;color:white')
-                    //button.appendChild(buy_icon)
                     td.appendChild(add_button3);
                     td.addEventListener('click', function() {
                       var quantity = prompt("Cantidad a comprar: ");
                       var reg = /^\d+$/;
                       if (reg.test(quantity)) {
-                        var total = data.list[this.id].price * quantity;
+                        var total = parseInt(data.list[this.id].price) * parseInt(quantity);
                         if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                           alert("No hay producto en existencia")
                         } else {
@@ -735,7 +649,7 @@ function load_products_by_brands() {
                         var quantity = prompt("Cantidad a comprar: ");
                         var reg = /^\d+$/;
                         if (reg.test(quantity)) {
-                          var total = data.list[this.id].price * quantity;
+                          var total = parseInt(data.list[this.id].price) * parseInt(quantity);
                           if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                             alert("No hay producto en existencia")
                           } else {
@@ -769,7 +683,7 @@ function load_products_by_brands() {
                       td.appendChild(erase_button3);
                       var product_id = data.list[i].id;
                       td.addEventListener('click', function() {
-                          var r = confirm("Segur@ que desea eliminar esta orden?")
+                          var r = confirm("Seguro que desea eliminar esta orden?")
                           if (r == true) {
                             xhr.get(`./product/delete/${product_id}`,{},{}).then((data)=>{
                               alert("Has eliminado un producto");
@@ -789,10 +703,12 @@ function load_products_by_brands() {
                       //button.innerHTML = " Editar";
                       td.appendChild(edit_button3);
                       td.addEventListener('click', function() {
-                        select();
-                        $('edit').style.display = "block";
-                        $('table').style.display = "none";
-                        $('title').innerHTML = "Editar producto";
+                        //select();
+                        var update_modal_body = $('upload_modal_body')
+                        $('message_modal_body').innerHTML = ""
+                        $('message_modal_body').appendChild(update_modal_body)
+                        $('message_modal_title').innerHTML = "Editar producto"
+                        $('message_modal_button').innerHTML = "Editar y guardar"
                         var price = $('precio');
                         price.setAttribute('placeholder', data.list[this.id].price);
                         var description = $('description');
@@ -803,11 +719,12 @@ function load_products_by_brands() {
                         stock.setAttribute('placeholder', data.list[this.id].stock);
                         var type_supplier = $('type_supplier');
                         type_supplier.setAttribute('placeholder', data.list[this.id].type_supplier);
-                        var brand = $('brand').value;
-                        var department = $('department').value;
+                        var brand = $('brand_select').value;
+                        var department = $('department_select').value;
                         var product_id = data.list[this.id].id;
                         var td_id = this.id;
-                        $('update').addEventListener('click', function() {
+                        //$('update').addEventListener('click', function() {
+                        $('message_modal_button').addEventListener('click', function() {
                           if (price.value === "") {
                             price.value = data.list[td_id].price;
                           }
@@ -832,8 +749,9 @@ function load_products_by_brands() {
                          var producto = data.list[td_id].id;
                           xhr.post(`./product/update`,{price:price.value, description:description.value, stock:stock.value, type_supplier:type_supplier.value, brand:brand, department:department, code:code.value, product_id:producto}, {'Content-Type':'application/json'}).then((data)=>{
                             alert("Producto editado con exito")
-                          });
+                          }).then(()=> {$('close_message_modal').click()})
                         });
+                        $('trigger_message_modal').click();
                      });
                     break;
                     }
@@ -931,18 +849,18 @@ function select() {
   xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
     console.log(data);
       for (var i=0; i<data.brands.length; i++) {
-        var brand = document.createElement("option");
-        brand.value = data.brands[i].name;
-        brand.innerHTML = data.brands[i].name;
-        $('brands').appendChild(brand);
+        var brand_option = document.createElement("option");
+        brand_option.value = data.brands[i].name;
+        brand_option.innerHTML = data.brands[i].name;
+        $('brand_select').appendChild(brand_option);
 
       }
 
       for (var i=0; i<data.departments.length; i++) {
-          var department = document.createElement("option");
-          department.value = data.departments[i].name;
-          department.innerHTML = data.departments[i].name;
-          $('departments').appendChild(department);
+          var department_option = document.createElement("option");
+          department_option.value = data.departments[i].name;
+          department_option.innerHTML = data.departments[i].name;
+          $('department_select').appendChild(department);
       }
   });
 }
@@ -969,9 +887,7 @@ function second_function() {
   });
 }
 
-//making things beautiful:
-breakpoint.refreshValue()
-responsiveness()
+
 
 $('show').addEventListener('click', load_products_by_brands)
 $('show2').addEventListener('click', load_products_by_departments)
