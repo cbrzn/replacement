@@ -5,7 +5,7 @@ function stuff() {
         var brand = document.createElement("option");
         brand.value = data.brands[i].name;
         brand.innerHTML = data.brands[i].name;
-        $('brand').appendChild(brand);
+        $('brand_search_select').appendChild(brand);
       }
   });
 }

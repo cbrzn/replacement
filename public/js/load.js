@@ -21,8 +21,8 @@ function sendFile(){
     let description = $("description").value;
     let stock = $("stock").value;
     let type_supplier = $("type_supplier").value;
-    let brand = $("brand").value;
-    let department = $("department").value;
+    let brand = $("brand_select").value;
+    let department = $("department_select").value;
     let code = $("code").value;
     formData.append('price', precio);
     formData.append('description', description);
@@ -49,21 +49,21 @@ function select() {
   xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
 
       for (var i=0; i<data.brands.length; i++) {
-        var brand_option = document.createElement("option");
-        brand_option.innerHTML = ''
-        brand_option.value = data.brands[i].name;
-        brand_option.innerHTML = data.brands[i].name;
+        var upload_brand_option = document.createElement("option");
+        upload_brand_option.innerHTML = ''
+        upload_brand_option.value = data.brands[i].name;
+        upload_brand_option.innerHTML = data.brands[i].name;
         if (data.brands[i].name !== null) {
-          $('brand_select').appendChild(brand_option);
+          $('brand_select').appendChild(upload_brand_option);
         }
       }
       for (var i=0; i<data.departments.length; i++) {
-          var department_option = document.createElement("option");
-          department_option.innerHTML = ''
-          department_option.value = data.departments[i].name;
-          department_option.innerHTML = data.departments[i].name;
+          var upload_department_option = document.createElement("option");
+          upload_department_option.innerHTML = ''
+          upload_department_option.value = data.departments[i].name;
+          upload_department_option.innerHTML = data.departments[i].name;
           if (data.departments[i].name !== null) {
-            $('department_select').appendChild(department_option);
+            $('department_select').appendChild(upload_department_option);
           }
       }
 
