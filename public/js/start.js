@@ -697,7 +697,7 @@ function load_products_by_brands() {
                       td.appendChild(erase_button3);
                       var product_id = data.list[i].id;
                       td.addEventListener('click', function() {
-                          var r = confirm("Seguro que desea eliminar esta orden?")
+                          var r = confirm("Seguro que desea eliminar este producto?")
                           if (r == true) {
                             xhr.get(`./product/delete/${product_id}`,{},{}).then((data)=>{
                               alert("Has eliminado un producto");
