@@ -23,7 +23,7 @@ router.post('/send_email',(req, res)=> {
   // sender address
           from: '<email@gmail.com>',
   // list of receivers
-          to: 'cesarbrazon10@gmail.com',
+          to: 'ventas@nikkeiautoparts.com',
   // Subject line
           subject: 'Nueva compra',
           html: text,
