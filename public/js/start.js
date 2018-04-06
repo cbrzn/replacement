@@ -8,7 +8,6 @@ var small_title = $('small_title')
 
 breakpoint.refreshValue = function () {
   this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
-  console.log(breakpoint.value)
 };
 
 function responsiveness(){
