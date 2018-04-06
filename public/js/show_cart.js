@@ -4,37 +4,22 @@ function $(id) {
 var brand;
 var breakpoint = {};
 var title = $('title')
-var small_title = $('small_title')
 
-breakpoint.refreshValue = function () {
+/*breakpoint.refreshValue = function () {
   this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
   console.log(breakpoint.value)
-};
+};*/
 
-function responsiveness(){
-  switch(breakpoint.value) {
-              case 'smartphone':
-                title.setAttribute('class', '')
-                title.innerHTML = "";
-                small_title.setAttribute('class', 'display-4   d-inline  bg-dark text-white responsive-display')
-              break;
-              case 'tablet':
-                title.setAttribute('class', '')
-                title.innerHTML = "";
-                small_title.setAttribute('class', 'display-4   d-inline  bg-dark text-white responsive-display')
-              break;
-              case 'desktop':
-                small_title.setAttribute('class', '')
-                small_title.innerHTML = "";
-                title.setAttribute('class', ' display-4 col-4 col-md-4 mb-0  d-inline  bg-dark text-white ')
-              break;
-              default:
-                small_title.setAttribute('class', '')
-                small_title.innerHTML = "";
-                title.setAttribute('class', ' display-4 col-4 col-md-4 mb-0  d-inline  bg-dark text-white ')
-          }
-}
 
+  const eraseButton = (mybutton)=>{
+    var erase_icon = document.createElement('i');
+    mybutton.setAttribute('class','btn btn-danger pl-5 pr-5')
+    erase_icon.setAttribute('class','ion-icon ion-android-delete pl-1 ml-2')
+    erase_icon.setAttribute('style','font-size:22px;color:white')
+    mybutton.innerHTML = "  Eliminar"
+    mybutton.appendChild(erase_icon)
+    return mybutton
+  }
 
 const sendCartButton = (mybutton)=>{
     var send_icon = document.createElement('i');
@@ -50,8 +35,6 @@ const sendCartButton = (mybutton)=>{
 
 function cart() {
 
-
-  console.log('idk man')
   var xhr = new XHR();
   $('tr').innerHTML = "";
 
@@ -126,13 +109,29 @@ function cart() {
               td.innerHTML = data.list[i].quantity;
             break;
             case 3:
-              td.innerHTML = data.list[i].total;
+              var size = data.list[i].total.toString().length;
+              var number  = data.list[i].total.toString();
+              var arr = number.split("").reverse();
+              var points = [];
+              for (var n=0; n<size; n++) {
+                switch (n) {
+                  case 6:
+                  case 9:
+                  case 12:
+                    points.push(arr[n] + ",");
+                  break;
+                  default:
+                    points.push(arr[n]);
+                  break;
+                }
+              }
+            td.innerHTML = points.reverse().join("");
             break;
             case 4:
               td.setAttribute('id', data.list[i].product_id)
-              var erase = document.createElement('button');
-              erase.innerHTML = "Eliminar"
-              td.appendChild(erase);
+              var erase_button = document.createElement('button');
+              erase_button = eraseButton(erase_button)
+              td.appendChild(erase_button);
               td.addEventListener('click', function() {
                 xhr.get(`./cart/delete/${this.id}`,{},{}).then((data) => {
                 alert("Has eliminado un producto del carro de compras!");
@@ -151,7 +150,7 @@ function cart() {
 
   var total = 0;
   for (var i=0; i<data.list.length; i++) {
-  total += data.list[i].total;
+  total += +data.list[i].total;
   }
   var arr_names = [];
   for (var i=0; i<data.list.length; i++) {
@@ -175,22 +174,23 @@ function cart() {
   var user_id = data.session.id;
 
 
+  send_cart.addEventListener('click', function() {
+        xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
+          products_name:arr_names, total:total, quantity:arr_quantity,
+          price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
+          if (data.sent === true) {
+            alert("Pedido enviado")
+          } else {
+            alert("Error al enviar el pedido. Por favor intente de nuevo")
+          }
+        })
+
+    })
+
  })
 
 }
 
-send_cart.addEventListener('click', function() {
-      xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
-        products_name:arr_names, total:total, quantity:arr_quantity,
-        price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
-        if (data.sent === true) {
-          alert("Pedido enviado")
-        } else {
-          alert("Error al enviar el pedido. Por favor intente de nuevo")
-        }
-      })
-
-  })
 
 
 
@@ -199,8 +199,7 @@ send_cart.addEventListener('click', function() {
 
 
 
-
-breakpoint.refreshValue()
-responsiveness()
+//breakpoint.refreshValue()
+//responsiveness()
 //addEventListener('load', cart);
 cart()

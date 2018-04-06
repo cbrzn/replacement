@@ -9,6 +9,7 @@ function create_order(){
     let name = $('name').value;
     let lastname = $('lastname').value;
     let total = $('total').value;
+    total = total.replace(/,/g , ".");
     let user_id = $('user_id').value;
     xhr.post(`./order/create`,{bill:bill, name:name, lastname:lastname, total:total, user_id:user_id},{'Content-Type':'application/json'}).then((data)=>{
       if (data.status == 200) {
