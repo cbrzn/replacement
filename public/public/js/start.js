@@ -60,7 +60,7 @@ function load_products_by_brands() {
     $('search_by').innerHTML = ""
     brand_name.setAttribute('class', 'd-inline')
     brand_name.innerHTML = `Marca: ${brand}`;
-    $('search_by').appendChild(brand_name);
+    $('search_by').appendChild(brand_name);  
 
 
     $('tr').innerHTML = "";
@@ -113,9 +113,9 @@ function load_products_by_brands() {
                 var points = [];
                 for (var n=0; n<size; n++) {
                   switch (n) {
-                    case 6:
-                    case 9:
-                    case 12:
+                    case 5:
+                    case 8:
+                    case 11:
                       points.push(arr[n] + ",");
                     break;
                     default:
@@ -226,9 +226,9 @@ function load_products_by_brands() {
                   var points = [];
                   for (var n=0; n<size; n++) {
                     switch (n) {
-                      case 6:
-                      case 9:
-                      case 12:
+                      case 5:
+                      case 8:
+                      case 11:
                         points.push(arr[n] + ",");
                       break;
                       default:
@@ -302,10 +302,10 @@ function load_products_by_brands() {
                   //button.innerHTML = "Editar";
                   td.appendChild(edit_button1);
                   td.addEventListener('click', function() {
-                  if(first_update == false ){
+                  if(first_update == false ){                      
                   select();
-                  }
-
+                  }  
+                    
                     //$('trigger_message_modal').click();
 
                     //UPDATE MODAL CREATION
@@ -714,9 +714,9 @@ function load_products_by_brands() {
                       td.appendChild(edit_button3);
                       //IMPORTANT SHIT DOWN HERE
                         td.addEventListener('click', function() {
-                        if(first_update == false ){
+                        if(first_update == false ){                      
                         select();
-                        }
+                        }                  
                         //$('trigger_message_modal').click();
 
                         //UPDATE MODAL CREATION
@@ -895,12 +895,12 @@ function select() {
           department_option.value = data.departments[i].name;
           department_option.innerHTML = data.departments[i].name;
           $('department_select').appendChild(department_option);
-      }
+      }    
 
-
-        //$('update_brand_select').innerHTML = "";
-        $('update_brand_select').appendChild(default_select);
-
+      
+        //$('update_brand_select').innerHTML = "";  
+        $('update_brand_select').appendChild(default_select);  
+      
       for (var i=0; i<data.brands.length; i++) {
         var update_brand_option = document.createElement("option");
         update_brand_option.value = data.brands[i].name;
@@ -908,7 +908,7 @@ function select() {
         $('update_brand_select').appendChild(update_brand_option);
         console.log($('update_brand_select'))
       }
-
+      
         $('update_department_select').innerHTML = "";
         $('update_department_select').appendChild(default_select);
       for (var i=0; i<data.departments.length; i++) {
