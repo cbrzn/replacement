@@ -48,6 +48,7 @@ var first_update = false;
 function load_products_by_brands() {
   var xhr = new XHR();
   second_function();
+  $('note').style.display = "none";
   $('department_search_select').innerHTML = "";
   brand = $('brand_search_select').value;
   xhr.post('./product/prices',{brand:brand},{'Content-Type':'application/json'}).then((data)=> {
@@ -944,8 +945,6 @@ function second_function() {
 
   });
 }
-
-
 
 $('show').addEventListener('click', load_products_by_brands)
 $('show2').addEventListener('click', load_products_by_departments)

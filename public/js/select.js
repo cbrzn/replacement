@@ -10,4 +10,4 @@ function stuff() {
   });
 }
 
-addEventListener('load', stuff);
+stuff();
