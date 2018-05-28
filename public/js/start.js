@@ -335,6 +335,12 @@ function load_products_by_brands() {
                       var update_department = $('update_department_select').value;
                       if (price.value === "") {
                         price.value = data.list[td_id].price;
+                      } else {
+                        price.value = price.value.replace(/[,.]/g, (m) => {
+                          // m is the match found in the string
+                          // If `,` is matched return `.`, if `.` matched return `,`
+                          return m === ',' ? '.' : '';
+                      });
                       }
                       if (description.value === "") {
                         description.value = data.list[td_id].description;
