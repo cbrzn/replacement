@@ -249,6 +249,7 @@ function select() {
                                           if (r == true) {
                                             xhr.get(`./stuff/delete_brand/${this.id}`,{},{}).then((data) => {
                                               alert('Marca eliminada');
+                                              window.location.href = './index.html'
                                             })
                                           }
                                         });
@@ -270,6 +271,7 @@ function select() {
                                           if (r == true) {
                                             xhr.get(`./stuff/delete_department/${this.id}`,{},{}).then((data) => {
                                               alert('Departamento eliminado');
+                                              window.location.href = './index.html'
                                             })
                                           }
                                         });

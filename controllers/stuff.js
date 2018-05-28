@@ -1,6 +1,7 @@
 const express = require('express');
 let router = express.Router();
 let stuff = require('./../helpers/stuff_db');
+let product = require('./../helpers/product_db');
 var brands, departments;
 
 router.post('/add_brand', (req, res) => {
@@ -29,13 +30,25 @@ router.get('/get_brands_and_departments', (req, res) => {
 
 router.get('/delete_brand/:name', (req, res) => {
   stuff.delete_brand(req.params.name).then((data) => {
-    res.send({status:200})
+    product.delete_product_by_brand(req.params.name).then ((data) => {
+      res.send({status:200})
+    }).catch((err) => {
+      res.send({status:404})
+    })
+  }).catch((err) => {
+    res.send({status:500})
   })
 })
 
 router.get('/delete_department/:name', (req, res) => {
   stuff.delete_department(req.params.name).then((data) => {
-    res.send({status:200})
+    product.delete_product_by_deparment(req.params.name).then ((data) => {
+      res.send({status:200})
+    }).catch((err) => {
+      res.send({status:404})
+    })
+  }).catch((err) => {
+    res.send({status:500})
   })
 })
 

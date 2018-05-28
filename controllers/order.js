@@ -124,7 +124,7 @@ router.post('/deliver_done', (req, res) => {
     month += 1;
     payment_day = a;
   } else if ((month % 2 === 0 && month < 8 && payment_day > 30) || month === 7 || (!(month % 2 === 0) && month > 7 && payment_day > 30)) {
-    var a = payment_dat = 30;
+    var a = payment_day - 30;
     payment_day = a;
     month += 1;
   }
