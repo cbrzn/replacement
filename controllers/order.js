@@ -7,8 +7,8 @@ router.post('/send_email',(req, res)=> {
   var transporter = nodemailer.createTransport({
    service: 'gmail',
    auth: {
-          user: 'projectmailer3@gmail.com',
-          pass: 'Contrasena1'
+          user: 'nikkeimessager@gmail.com',
+          pass: 'Nikkeiautoparts0'
       }
   });
 
@@ -23,7 +23,7 @@ router.post('/send_email',(req, res)=> {
   // sender address
           from: '<email@gmail.com>',
   // list of receivers
-          to: 'analistaventas.nikkei@gmail.com',
+          to: 'cesarbrazon10@gmail.com',
   // Subject line
           subject: 'Nueva compra',
           html: text,

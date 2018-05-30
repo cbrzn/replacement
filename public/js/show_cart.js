@@ -115,9 +115,9 @@ function cart() {
               var points = [];
               for (var n=0; n<size; n++) {
                 switch (n) {
+                  case 3:
                   case 6:
                   case 9:
-                  case 12:
                     points.push(arr[n] + ",");
                   break;
                   default:
@@ -169,6 +169,23 @@ function cart() {
   arr_id.push(data.list[i].product_id);
   }
 
+  var size = total.toString().length;
+  var number  = total.toString();
+  var arr = number.split("").reverse();
+  var points = [];
+  for (var n=0; n<size; n++) {
+    switch (n) {
+      case 3:
+      case 6:
+      case 9:
+        points.push(arr[n] + ",");
+      break;
+      default:
+        points.push(arr[n]);
+      break;
+    }
+  }
+  total = points.reverse().join("")
   var user_name = data.session.name;
   var user_lastname = data.session.last_name;
   var user_id = data.session.id;
@@ -176,7 +193,7 @@ function cart() {
 
   send_cart.addEventListener('click', function() {
         xhr.post('./order/send_email',{user_name:user_name, user_lastname:user_lastname,
-          products_name:arr_names, total:total, quantity:arr_quantity,
+          products_name:arr_names, total, quantity:arr_quantity,
           price:arr_price, user_id:user_id, product_id:arr_id},{'Content-Type':'application/json'}).then((data) => {
           if (data.sent === true) {
             alert("Pedido enviado")
