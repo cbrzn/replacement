@@ -15,7 +15,8 @@ app.use(express.urlencoded({extended:false}));
 app.use(session({
   secret:'keyboardcat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { maxAge: 360000000 }
 }));
 
 app.use(passport.initialize());
