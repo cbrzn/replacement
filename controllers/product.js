@@ -93,7 +93,7 @@ router.post('/prices', (req, res) => {
     }
   }
   const { brand, row } = req.body
-  const offset = 0
+  let offset = 0
   if (row != 1) {
     offset = (15*parseInt(row)) - 15
   }
