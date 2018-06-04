@@ -51,7 +51,8 @@ function load_products_by_brands() {
   $('note').style.display = "none";
   $('department_search_select').innerHTML = "";
   brand = $('brand_search_select').value;
-  xhr.post('./product/prices',{brand:brand},{'Content-Type':'application/json'}).then((data)=> {
+  xhr.post('./product/prices',{brand},{'Content-Type':'application/json'}).then((data)=> {
+    console.log(data)
     var br = document.createElement('br')
     var brand_name = document.createElement('h3');
    // brand_name.setAttribute('id','this_brand')
@@ -460,6 +461,7 @@ function load_products_by_brands() {
       var xhr = new XHR();
       var department = $('department_search_select').value;
       xhr.post('./product/show_products_by_stuff',{brand:brand, department:department},{'Content-Type':'application/json'}).then((data)=> {
+        console.log(data)
         if($('this') !== null) {
           $('this').remove();
         }
