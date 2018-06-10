@@ -10,7 +10,6 @@
       <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
       <link rel="stylesheet" href="/style/style.css">
       <script src="./js/XHR.js"></script>
-      <script src="./js/select.js"></script>
       <title>Mayor Nikkei C.A.</title>
     </head>
     <body class="bg-light">
@@ -29,6 +28,9 @@
                 </li>
                   <li class="nav-item">
                   <a id="register" class="nav-link" data-toggle="modal" data-target="#register_modal" href="" style="display:none">Registrate</a>
+                </li>
+                <li class="nav-item active">
+                  <a id="update_prices" class="nav-link" data-toggle="modal" data-target="#update_prices_modal" href="#" style="display:none">Actualizar precios</a>
                 </li>
                   <li class="nav-item active">
                     <a id="upload" class="nav-link" data-toggle="modal" data-target="#upload_modal" href="#" style="display:none">Agregar producto</a>
@@ -336,17 +338,31 @@
         </div>
       </div>
 
-      <!--<div id="stuff" style="display: none;">
-        <h1>Agregar marca y/o departamento</h1>
-          <div class="login-page">
-             <div class="login-form">
-               <div id="add_btn" class="form">
-                  <input id="brand" type="text" placeholder="marca"></input>
-                  <input id="department" type="text" placeholder="departamento"></input>
-                </div>
-              </div>
+      <!-- UPDATE PRICE MODAL -->
+      <div class="modal fade" id="update_prices_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+              <h5 class="modal-title" id="message_modal_title">Actualizar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" onclick="">&times;</span>
+              </button>
             </div>
-        </div>-->
+            <div class="modal-body bg-light text-dark" id="message_modal_body">
+              <span class="pb-2">Marca:</span>
+              <select class="custom-select" id='brand_price'></select>
+              <span class="pb-2">Departamento:</span>
+              <select class="custom-select" id='department_price'></select>
+             <span class="pb-2">Cuanto porcentaje desea actualizar:</span>
+             <input id='porcentage_update'></input>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_message_modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="update_price_1">Elegir productos</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
      <span data-toggle="modal" data-target="#message_modal" id="trigger_message_modal"></span>
 
@@ -359,5 +375,6 @@
        <script src="./js/signup.js"></script>
        <script src="./js/load.js"></script>
        <script src="./js/start.js"></script>
+       <script src="./js/update_price.js"></script>
   </body>
 </html>

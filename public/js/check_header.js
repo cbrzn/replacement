@@ -9,6 +9,7 @@ function log(){
           $('cart').style.display = "block";
           if (data.admin === true) {
             $('upload').style.display = "block";
+            $('update_prices').style.display = "block";
           }
           $('logout').style.display = "block";
           $('order').style.display = "block";

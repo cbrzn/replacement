@@ -65,10 +65,10 @@ router.post('/show_products_by_stuff',(req,res)=>{
       var admin = true
     }
   }
-  const { brand, department, row } = req.body
-  const offset = 0
-  if (row != 1) {
-    offset = (15*parseInt(row)) - 15
+  const { brand, department, page } = req.body
+  let offset = 0
+  if (page != 1) {
+    offset = (15*parseInt(page)) - 15
   }
   product.count_by_brand(brand).then(count => {   
     product.show_by_brand_and_department(brand, department).then(data=>{
@@ -92,10 +92,10 @@ router.post('/prices', (req, res) => {
       var admin = true
     }
   }
-  const { brand, row } = req.body
+  const { brand, page } = req.body
   let offset = 0
-  if (row != 1) {
-    offset = (15*parseInt(row)) - 15
+  if (page != 1) {
+    offset = (15*parseInt(page)) - 15
   }
   product.count_by_brand(brand).then(count => {   
     product.show_price_list(brand, offset).then(data=> {
@@ -128,12 +128,20 @@ router.get('/delete/:id', (req, res) => {
   })
 })
 
-router.post('/update/', (req, res)=> {
-  product.update_product(req.body.price, req.body.description,  req.body.stock, req.body.type_supplier, req.body.brand, req.body.department, req.body.code, req.body.product_id).then(data=> {
+router.post('/update', (req, res)=> {
+  const { price, description,  stock, type_supplier, brand, department, code, product_id } = req.body
+  product.update_product(price, description,  stock, type_supplier, brand, department, code, product_id).then(data=> {
       res.send({msg:data})
       }).catch(err=> {
         throw err
   })
+})
+
+router.post('/update_prices', (req, res) => {
+  const { brand, department, porcentage } = req.body
+  const decimal = +porcentage/100
+  
+  
 })
 
 module.exports = router

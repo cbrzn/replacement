@@ -51,7 +51,7 @@ function load_products_by_brands() {
   $('note').style.display = "none";
   $('department_search_select').innerHTML = "";
   brand = $('brand_search_select').value;
-  xhr.post('./product/prices',{brand},{'Content-Type':'application/json'}).then((data)=> {
+  xhr.post('./product/prices',{brand, page:1},{'Content-Type':'application/json'}).then((data)=> {
     console.log(data)
     var br = document.createElement('br')
     var brand_name = document.createElement('h3');
@@ -460,7 +460,7 @@ function load_products_by_brands() {
     function load_products_by_departments() {
       var xhr = new XHR();
       var department = $('department_search_select').value;
-      xhr.post('./product/show_products_by_stuff',{brand:brand, department:department},{'Content-Type':'application/json'}).then((data)=> {
+      xhr.post('./product/show_products_by_stuff',{brand, department, page:1},{'Content-Type':'application/json'}).then((data)=> {
         console.log(data)
         if($('this') !== null) {
           $('this').remove();
@@ -954,5 +954,21 @@ function second_function() {
   });
 }
 
+
+stuff = () => {
+  fetch('./stuff/get_brands_and_departments')
+    .then(response => response.json())
+    .then(data => {
+      for (var i in data.brands) {
+        var brand = document.createElement("option");
+        brand.value = data.brands[i].name;
+        brand.innerHTML = data.brands[i].name;
+        $('brand_search_select').appendChild(brand);
+      }
+    })                                         
+}
+
+
+stuff();
 $('show').addEventListener('click', load_products_by_brands)
 $('show2').addEventListener('click', load_products_by_departments)

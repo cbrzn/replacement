@@ -212,3 +212,34 @@ module.exports.delete_product_by_deparment = (department) =>{
     });
 }
 
+module.exports.update_price_by_brand = (price, brand) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.none('update products set price = $1 where brand = $2',[price, brand]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            rej(error);
+        });
+    });
+}
+
+module.exports.update_price_by_brand_and_department = (price, brand, department) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.none('update products set price = $1 where brand = $2 and department = $3',[price, brand, department]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            rej(error);
+        });
+    });
+}

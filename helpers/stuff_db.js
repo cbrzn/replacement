@@ -58,7 +58,7 @@ module.exports.add_department = (department) => {
 module.exports.get_departments = () => {
     return new Promise((res,rej)=> {
           db.connect().then((obj)=> {
-              obj.any('SELECT * FROM departments').then((data)=>{
+            obj.any('select distinct on (name) name from departments').then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
