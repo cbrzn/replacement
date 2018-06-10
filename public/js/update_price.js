@@ -32,9 +32,22 @@ getting_upload_products = () => {
    const porcentage = $('porcentage_update').value
    var r = confirm(`Segur@ que desea actualizar un ${porcentage}% los precios en los productos de marca = ${brand} y departamento = ${department}?`)
     if (r == true) {
-        alert('SOPORTALA BOBO')
-    } else {
-        alert('NERO')
+        xhr.post('./product/update_prices', {brand, department, porcentage}, {'Content-Type':'application/json'}).then(data => {
+            switch(data.status) {
+                case 200:
+                    alert('Precios actualizados')
+                break
+                case 400:
+                    alert('Necesita indicar cuanto porcentaje quiere modificar')
+                break
+                case 403:
+                    alert('Necesita seleccionar una marca')
+                break
+                case 404:
+                    alert('No hay productos asociados a esa marca y departamento')
+                break
+            }
+        })
     }
 }
 

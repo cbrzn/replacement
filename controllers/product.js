@@ -139,9 +139,40 @@ router.post('/update', (req, res)=> {
 
 router.post('/update_prices', (req, res) => {
   const { brand, department, porcentage } = req.body
+  if (porcentage == "") {
+    res.send({ status: 400 })
+    return
+  }
   const decimal = +porcentage/100
-  
-  
+  if (brand == "" && department != "") {
+    res.send({ status: 403 })
+    return
+  }
+  if (department == "") {
+    product.by_brand(brand).then(async products => {
+      for (var i in products) {
+        var new_price = (products[i].price * decimal) + (+products[i].price)
+        await product.update_price(new_price, products[i].id)
+      }
+       res.send({ status: 200 })
+    }).catch(err => {
+      res.send({ status: 402})
+    })
+  } else {
+    product.by_brand_and_department(brand, department).then(async products => {
+      if (products.length == 0) {
+        res.send({ status: 404 })
+        return
+      }
+      for (var i in products) {
+        var new_price = (products[i].price * decimal) + (+products[i].price)
+        await product.update_price(new_price, products[i].id)
+      }
+      res.send({ status: 200 })
+    }).catch(err => {
+      res.send({ status: 401})
+    })
+  }
 })
 
 module.exports = router
