@@ -16,12 +16,12 @@ router.post('/add_department', (req, res) => {
       })
     });
 
-router.get('/get_brands_and_departments', (req, res) => {
-  stuff.get_brands().then((data) => {
+router.get('/get_brands_and_departments', async (req, res) => {
+  await stuff.get_brands().then((data) => {
      brands = data;
   });
 
-  stuff.get_departments().then((data) => {
+  await stuff.get_departments().then((data) => {
      departments = data;
   })
 

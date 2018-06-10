@@ -72,7 +72,7 @@ router.post('/show_products_by_stuff',(req,res)=>{
   }
   product.count_by_brand(brand).then(count => {   
     product.show_by_brand_and_department(brand, department).then(data=>{
-          res.send({list:data, id:user_id, admin:admin, count:count.count})
+          res.send({list:data, id:user_id, admin, count:count.count})
           }).catch(err=>{
               throw err
           })

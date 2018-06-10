@@ -51,9 +51,10 @@ function select() {
   //$('add_stuff').style.display = "block";
   //$('show_stuff').style.margin = "0 auto";
   //$('show_stuff').style.display = "block";
-  xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
-
-      for (var i=0; i<data.brands.length; i++) {
+  fetch('./stuff/get_brands_and_departments').then(response=> response.json())
+    .then(data => {
+      console.log(data)
+       for (var i=0; i<data.brands.length; i++) {
         var upload_brand_option = document.createElement("option");
         upload_brand_option.innerHTML = ''
         upload_brand_option.value = data.brands[i].name;
