@@ -4,12 +4,11 @@ function $(id) {
 };
 function log(){
      xhr.get('./value',{},{}).then((data)=>{
-       console.log(data)
        if (data.session){
           $('cart').style.display = "block";
           if (data.admin === true) {
             $('upload').style.display = "block";
-            $('update_prices').style.display = "block";
+            ($('update_prices') != null ? $('update_prices').style.display = "block" : console.log('cool'))
           }
           $('logout').style.display = "block";
           $('order').style.display = "block";
