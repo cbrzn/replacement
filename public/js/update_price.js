@@ -29,6 +29,7 @@ loading_brand_for_price_update = () => {
             $('brand_price').appendChild(brand_option);
         }
         for (var i in data.brands) {
+            console.log(data.brands)
             var department_option = document.createElement("option");
             department_option.value = data.departments[i].name;
             department_option.innerHTML = data.departments[i].name;
