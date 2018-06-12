@@ -80,6 +80,8 @@ router.post('/show_products_by_stuff',(req,res)=>{
     })
 
 router.post('/prices', (req, res) => {
+  console.log(req.body)
+
   if (req.user === undefined) {
     var user_id = null
   } else {

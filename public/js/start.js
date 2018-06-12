@@ -5,6 +5,9 @@ var brand;
 var breakpoint = {};
 var title = $('title')
 var first_update = false;
+var page = 1;
+var showingByBrand;
+var actualPage;
 
 
   //making your buttons beautiful
@@ -45,13 +48,14 @@ var first_update = false;
 
 
 
-function load_products_by_brands() {
+function load_products_by_brands(this_page) {
   var xhr = new XHR();
   second_function();
   $('note').style.display = "none";
   $('department_search_select').innerHTML = "";
   brand = $('brand_search_select').value;
-  xhr.post('./product/prices',{brand, page:1},{'Content-Type':'application/json'}).then((data)=> {
+  page = this_page
+  xhr.post('./product/prices',{brand, page},{'Content-Type':'application/json'}).then((data)=> {
     console.log(data)
     var br = document.createElement('br')
     var brand_name = document.createElement('h3');
@@ -453,14 +457,121 @@ function load_products_by_brands() {
         }
         tbl.appendChild(tbdy);
        }
-      });
+       
+      // -----------  PAGINATION STARTS: -----------------//
+      actualPage = this_page
+      let pageButtons = [];
+      const checkFirstPage = () => {
+        if(actualPage == 1)
+          return true
+      }
+      const checkLastPage = () => {
+        for(let i=0; i<pageButtons.length; i++){
+          if(pageButtons[pageButtons.length - 1].id == `toPage${actualPage}` ){
+            console.log('attempting to hide last page button')
+            document.getElementById('nextButton').setAttribute("style", "display:none");
+          } else
+            document.getElementById('nextButton').setAttribute("style", "display:block");     
+        }   
+      }
+
+      const selectedPage = (page) => {
+        for(let i=0; i<pageButtons.length; i++){
+          if (pageButtons[i].id == `toPage${actualPage}`){
+            document.getElementById(`toPage${actualPage}`).setAttribute('class','page-item active')
+          }    
+        }   
+        if (checkFirstPage()){
+          console.log('trying to hide previous')
+          console.log(document.getElementById('previousButton'))
+          document.getElementById('previousButton').setAttribute("style", "display:none");
+        } else {
+          document.getElementById('previousButton').setAttribute("style", "display:block");
+        }
+        
+      }
+ 
+
+      console.log('mamamelo')
+      let pages = (data.count / 15)
+      let pageCounter = 0
+      let pagenav = $('pagenav');
+      let pageul = $('paginationUl');
+      
+
+      const newPageLi = () =>{
+        let pageli = document.createElement('li');
+        pageli.setAttribute('class','page-item');
+        return pageli
+      }
+
+      const newPageButton = page => {
+        let a = document.createElement('a');
+        a.setAttribute('class','page-link')
+        a.innerHTML = page.toString()
+        return a
+      }
+
+      const previousButton = () =>{
+        let button = newPageLi()
+        let previousLink = document.createElement('a')
+        previousLink.setAttribute('class','page-link')
+        previousLink.setAttribute('id','previousButton')
+        previousLink.setAttribute('onclick','previousPage()')
+        previousLink.innerHTML = 'Anterior'
+        button.appendChild(previousLink)
+        return button
+      }
+
+      const nextButton = () => {
+        let button = newPageLi()
+        let nextLink = document.createElement('a')
+        nextLink.setAttribute('class','page-link')
+        nextLink.setAttribute('id','nextButton')
+        nextLink.setAttribute('onclick','nextPage()')
+        nextLink.innerHTML = 'Siguiente'
+        button.appendChild(nextLink)
+        return button
+      }
+
+      let previousli = previousButton()     
+      let nextli = nextButton()
+      console.log(previousli)
+
+      pageul.innerHTML = '';
+      pageul.appendChild(previousli)
+      
+
+      while( pageCounter <= pages){
+        pageCounter++;
+        let pagebutton = newPageLi();
+        pagebutton.appendChild(newPageButton(pageCounter));
+        pagebutton.setAttribute('onclick',`goToPage(${pageCounter})`) ;
+        pagebutton.setAttribute('id',`toPage${pageCounter}`);
+        pageButtons.push(pagebutton) ;
+        pageul.appendChild(pagebutton);
+        console.log(pagebutton);
+      };
+      console.log('chekcing pages');
+      console.log(pageButtons);
+      checkFirstPage();
+      selectedPage(actualPage);
+      pageul.appendChild(nextli);
+      checkLastPage();
+
+      // ----------------- PAGINATION ENDS ----------------- //
+       
+      }).then( ()=>{
+        showingByBrand = true
+      } );
     };
 
 
-    function load_products_by_departments() {
+    function load_products_by_departments(this_page) {
+      page = this_page
       var xhr = new XHR();
       var department = $('department_search_select').value;
-      xhr.post('./product/show_products_by_stuff',{brand, department, page:1},{'Content-Type':'application/json'}).then((data)=> {
+      xhr.post('./product/show_products_by_stuff',{brand, department, page},{'Content-Type':'application/json'}).then((data)=> {
         console.log(data)
         if($('this') !== null) {
           $('this').remove();
@@ -865,7 +976,113 @@ function load_products_by_brands() {
             }
             tbl.appendChild(tbdy);
            }
-          });
+           // -----------  PAGINATION STARTS: -----------------//
+            actualPage = this_page
+            let pageButtons = [];
+            const checkFirstPage = () => {
+              if(actualPage == 1)
+                return true
+            }
+            const checkLastPage = () => {
+              for(let i=0; i<pageButtons.length; i++){
+                if(pageButtons[pageButtons.length - 1].id == `toPage${actualPage}` ){
+                  console.log('attempting to hide last page button')
+                  document.getElementById('nextButton').setAttribute("style", "display:none");
+                } else
+                  document.getElementById('nextButton').setAttribute("style", "display:block");     
+              }   
+            }
+
+            const selectedPage = (page) => {
+              for(let i=0; i<pageButtons.length; i++){
+                if (pageButtons[i].id == `toPage${actualPage}`){
+                  document.getElementById(`toPage${actualPage}`).setAttribute('class','page-item active')
+                }    
+              }   
+              if (checkFirstPage()){
+                console.log('trying to hide previous')
+                console.log(document.getElementById('previousButton'))
+                document.getElementById('previousButton').setAttribute("style", "display:none");
+              } else {
+                document.getElementById('previousButton').setAttribute("style", "display:block");
+              }
+              
+            }
+      
+
+            console.log('mamamelo')
+            let pages = (data.count / 15)
+            let pageCounter = 0
+            let pagenav = $('pagenav');
+            let pageul = $('paginationUl');
+            
+
+            const newPageLi = () =>{
+              let pageli = document.createElement('li');
+              pageli.setAttribute('class','page-item');
+              return pageli
+            }
+
+            const newPageButton = page => {
+              let a = document.createElement('a');
+              a.setAttribute('class','page-link')
+              a.innerHTML = page.toString()
+              return a
+            }
+
+            const previousButton = () =>{
+              let button = newPageLi()
+              let previousLink = document.createElement('a')
+              previousLink.setAttribute('class','page-link')
+              previousLink.setAttribute('id','previousButton')
+              previousLink.setAttribute('onclick','previousPage()')
+              previousLink.innerHTML = 'Anterior'
+              button.appendChild(previousLink)
+              return button
+            }
+
+            const nextButton = () => {
+              let button = newPageLi()
+              let nextLink = document.createElement('a')
+              nextLink.setAttribute('class','page-link')
+              nextLink.setAttribute('id','nextButton')
+              nextLink.setAttribute('onclick','nextPage()')
+              nextLink.innerHTML = 'Siguiente'
+              button.appendChild(nextLink)
+              return button
+            }
+
+            let previousli = previousButton()     
+            let nextli = nextButton()
+            console.log(previousli)
+
+            pageul.innerHTML = '';
+            pageul.appendChild(previousli)
+            
+
+            while( pageCounter <= pages){
+              pageCounter++;
+              let pagebutton = newPageLi();
+              pagebutton.appendChild(newPageButton(pageCounter));
+              pagebutton.setAttribute('onclick',`goToPage(${pageCounter})`) ;
+              pagebutton.setAttribute('id',`toPage${pageCounter}`);
+              pageButtons.push(pagebutton) ;
+              pageul.appendChild(pagebutton);
+              console.log(pagebutton);
+            };
+            console.log('chekcing pages');
+            console.log(pageButtons);
+            checkFirstPage();
+            selectedPage(actualPage);
+            pageul.appendChild(nextli);
+            checkLastPage();
+
+            // ----------------- PAGINATION ENDS ----------------- //
+          }).then( ()=> {
+            showingByBrand = false;
+            //
+            
+          }  );
         };
 
 function delete_product(id) {
@@ -968,7 +1185,30 @@ stuff = () => {
     })                                         
 }
 
+goToPage = page => {
+  if(showingByBrand === undefined){
+    load_products_by_brands(page)
+  } 
+  else if(showingByBrand === true){
+    load_products_by_brands(page)
+  }   
+  else if(showingByBrand === false){
+    load_products_by_departments(page)
+  }   
+  actualPage = page;
+  console.log('the actual page is ' + actualPage)
+  console.log('brand showing is:')
+  console.log(showingByBrand)
+} 
+
+nextPage = () => {
+  goToPage(actualPage + 1)
+}
+
+previousPage = () => {
+  goToPage(actualPage - 1)
+}
 
 stuff();
-$('show').addEventListener('click', load_products_by_brands)
-$('show2').addEventListener('click', load_products_by_departments)
+//$('show').addEventListener('click', ()=> load_products_by_brands(2) );
+//$('show2').addEventListener('click', ()=> load_products_by_departments(2) );

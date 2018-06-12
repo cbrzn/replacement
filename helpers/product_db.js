@@ -17,10 +17,10 @@ module.exports.add_product = (price, user_id, description, stock, type_supplier,
     });
 }
 
-module.exports.show_all_products = (row) => {
+module.exports.show_all_products = (page) => {
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.any('select * from products order by code limit 15 offset $1',[row]).then((data)=>{
+            obj.any('select * from products order by code limit 15 offset $1',[page]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -33,10 +33,10 @@ module.exports.show_all_products = (row) => {
     });
 }
 
-module.exports.show_price_list = (brand, row) => {
+module.exports.show_price_list = (brand, page) => {
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.any('select * from products where brand = $1 order by code limit 15 offset $2',[brand, row]).then((data)=>{
+            obj.any('select * from products where brand = $1 order by code limit 15 offset $2',[brand, page]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -49,10 +49,10 @@ module.exports.show_price_list = (brand, row) => {
     });
 }
 
-module.exports.show_by_brand_and_department = (brand, department, row) =>{
+module.exports.show_by_brand_and_department = (brand, department, page) =>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.any('select * from products where brand = $1 and department = $2 order by code limit 15 offset $3', [brand,department, row]).then((data)=>{
+            obj.any('select * from products where brand = $1 and department = $2 order by code limit 15 offset $3', [brand,department, page]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
