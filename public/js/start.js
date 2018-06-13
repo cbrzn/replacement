@@ -482,8 +482,6 @@ function load_products_by_brands(this_page) {
           }    
         }   
         if (checkFirstPage()){
-          console.log('trying to hide previous')
-          console.log(document.getElementById('previousButton'))
           document.getElementById('previousButton').setAttribute("style", "display:none");
         } else {
           document.getElementById('previousButton').setAttribute("style", "display:block");
@@ -492,7 +490,6 @@ function load_products_by_brands(this_page) {
       }
  
 
-      console.log('mamamelo')
       let pages = (data.count / 15)
       let pageCounter = 0
       let pagenav = $('pagenav');
@@ -536,13 +533,12 @@ function load_products_by_brands(this_page) {
 
       let previousli = previousButton()     
       let nextli = nextButton()
-      console.log(previousli)
 
       pageul.innerHTML = '';
       pageul.appendChild(previousli)
       
 
-      while( pageCounter <= pages){
+      while( pageCounter < pages){
         pageCounter++;
         let pagebutton = newPageLi();
         pagebutton.appendChild(newPageButton(pageCounter));
@@ -550,10 +546,7 @@ function load_products_by_brands(this_page) {
         pagebutton.setAttribute('id',`toPage${pageCounter}`);
         pageButtons.push(pagebutton) ;
         pageul.appendChild(pagebutton);
-        console.log(pagebutton);
       };
-      console.log('chekcing pages');
-      console.log(pageButtons);
       checkFirstPage();
       selectedPage(actualPage);
       pageul.appendChild(nextli);
@@ -986,7 +979,6 @@ function load_products_by_brands(this_page) {
             const checkLastPage = () => {
               for(let i=0; i<pageButtons.length; i++){
                 if(pageButtons[pageButtons.length - 1].id == `toPage${actualPage}` ){
-                  console.log('attempting to hide last page button')
                   document.getElementById('nextButton').setAttribute("style", "display:none");
                 } else
                   document.getElementById('nextButton').setAttribute("style", "display:block");     
@@ -1000,8 +992,6 @@ function load_products_by_brands(this_page) {
                 }    
               }   
               if (checkFirstPage()){
-                console.log('trying to hide previous')
-                console.log(document.getElementById('previousButton'))
                 document.getElementById('previousButton').setAttribute("style", "display:none");
               } else {
                 document.getElementById('previousButton').setAttribute("style", "display:block");
@@ -1010,7 +1000,6 @@ function load_products_by_brands(this_page) {
             }
       
 
-            console.log('mamamelo')
             let pages = (data.count / 15)
             let pageCounter = 0
             let pagenav = $('pagenav');
@@ -1054,7 +1043,6 @@ function load_products_by_brands(this_page) {
 
             let previousli = previousButton()     
             let nextli = nextButton()
-            console.log(previousli)
 
             pageul.innerHTML = '';
             pageul.appendChild(previousli)
@@ -1068,10 +1056,7 @@ function load_products_by_brands(this_page) {
               pagebutton.setAttribute('id',`toPage${pageCounter}`);
               pageButtons.push(pagebutton) ;
               pageul.appendChild(pagebutton);
-              console.log(pagebutton);
             };
-            console.log('chekcing pages');
-            console.log(pageButtons);
             checkFirstPage();
             selectedPage(actualPage);
             pageul.appendChild(nextli);
