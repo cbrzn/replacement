@@ -1048,7 +1048,7 @@ function load_products_by_brands(this_page) {
             pageul.appendChild(previousli)
             
 
-            while( pageCounter <= pages){
+            while( pageCounter < pages){
               pageCounter++;
               let pagebutton = newPageLi();
               pagebutton.appendChild(newPageButton(pageCounter));
