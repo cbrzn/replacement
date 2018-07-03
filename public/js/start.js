@@ -287,10 +287,9 @@ function load_products_by_brands(this_page) {
                   td.setAttribute("id", i)
                   //button.innerHTML = "Eliminar";
                   td.appendChild(erase_button1);
-                  var product_id = data.list[i].id;
                   td.addEventListener('click', function() {
-                      console.log(data)
-                      var r = confirm("Segur@ que desea eliminar esta producto?")
+                    const product_id = data.list[this.id].id;
+                    var r = confirm("Segur@ que desea eliminar esta producto?")
                       if (r == true) {
                         xhr.get(`./product/delete/${product_id}`,{},{}).then((data)=>{
                           alert("Has eliminado un producto");
@@ -801,7 +800,8 @@ function load_products_by_brands(this_page) {
                       td.setAttribute("id", i)
                       //button.innerHTML = " Eliminar";
                       td.appendChild(erase_button3);
-                      var product_id = data.list[i].id;
+                      var product_id = data;
+                      console.log(product_id)
                       td.addEventListener('click', function() {
                           var r = confirm("Seguro que desea eliminar este producto?")
                           if (r == true) {
@@ -1062,15 +1062,7 @@ function load_products_by_brands(this_page) {
           }  );
         };
 
-function delete_product(id) {
-  let xhr = new XHR();
-  if (r == true) {
-    xhr.get(`./product/delete/${id}`,{},{}).then((data)=>{
-      alert("Producto eliminado");
-      window.location.href = "./index.html"
-    });
-  }
-};
+
 
 function logout(){
   let xhr = new XHR();
