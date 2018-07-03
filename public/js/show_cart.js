@@ -133,10 +133,13 @@ function cart() {
               erase_button = eraseButton(erase_button)
               td.appendChild(erase_button);
               td.addEventListener('click', function() {
-                xhr.get(`./cart/delete/${this.id}`,{},{}).then((data) => {
-                alert("Has eliminado un producto del carro de compras!");
-                window.location.href = "./cart.html";
-                })
+                var r = confirm("Segur@ que desea eliminar esta producto?")
+                if (r == true) {
+                  xhr.get(`./cart/delete/${this.id}`,{},{}).then((data) => {
+                    alert("Has eliminado un producto del carro de compras!");
+                    window.location.reload()
+                  })
+                }
               })
               break;
             }

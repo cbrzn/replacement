@@ -161,10 +161,10 @@ function load_products_by_brands(this_page) {
                       xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
                         if (data.msg === 200) {
                           alert("Producto agregado");
-                          window.location.href = "./index.html";
+                          //window.location.href = "./index.html";
                         } else {
                           alert("Producto ya esta agregado a carro de compras");
-                          window.location.href = "./index.html";
+                          //window.location.href = "./index.html";
                         }
                       });
                     }
@@ -289,11 +289,12 @@ function load_products_by_brands(this_page) {
                   td.appendChild(erase_button1);
                   var product_id = data.list[i].id;
                   td.addEventListener('click', function() {
-                      var r = confirm("Segur@ que desea eliminar esta orden?")
+                      console.log(data)
+                      var r = confirm("Segur@ que desea eliminar esta producto?")
                       if (r == true) {
                         xhr.get(`./product/delete/${product_id}`,{},{}).then((data)=>{
                           alert("Has eliminado un producto");
-                          window.location.href = "./index.html";
+                          load_products_by_brands(actualPage)
                       });
                     }
                   });
@@ -533,7 +534,7 @@ function load_products_by_brands(this_page) {
       pageul.appendChild(previousli)
       
 
-      while( pageCounter <= pages){
+      while( pageCounter < pages){
         pageCounter++;
         let pagebutton = newPageLi();
         pagebutton.appendChild(newPageButton(pageCounter));
@@ -1039,7 +1040,7 @@ function load_products_by_brands(this_page) {
             pageul.appendChild(previousli)
             
 
-            while( pageCounter <= pages){
+            while( pageCounter < pages){
               pageCounter++;
               let pagebutton = newPageLi();
               pagebutton.appendChild(newPageButton(pageCounter));
@@ -1063,9 +1064,12 @@ function load_products_by_brands(this_page) {
 
 function delete_product(id) {
   let xhr = new XHR();
-  xhr.get(`./product/delete/${id}`,{},{}).then((data)=>{
-    window.location.href = "./index.html"
-  });
+  if (r == true) {
+    xhr.get(`./product/delete/${id}`,{},{}).then((data)=>{
+      alert("Producto eliminado");
+      window.location.href = "./index.html"
+    });
+  }
 };
 
 function logout(){
