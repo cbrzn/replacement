@@ -53,7 +53,6 @@ function select() {
   //$('show_stuff').style.display = "block";
   fetch('./stuff/get_brands_and_departments').then(response=> response.json())
     .then(data => {
-      console.log(data)
        for (var i=0; i<data.brands.length; i++) {
         var upload_brand_option = document.createElement("option");
         upload_brand_option.innerHTML = ''

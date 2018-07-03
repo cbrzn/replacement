@@ -71,7 +71,7 @@ router.post('/show_products_by_stuff',(req,res)=>{
     offset = (15*parseInt(page)) - 15
   }
   product.count_by_brand(brand).then(count => {   
-    product.show_by_brand_and_department(brand, department).then(data=>{
+    product.show_by_brand_and_department(brand, department, offset).then(data=>{
           res.send({list:data, id:user_id, admin, count:count.count})
           }).catch(err=>{
               throw err
@@ -80,8 +80,6 @@ router.post('/show_products_by_stuff',(req,res)=>{
     })
 
 router.post('/prices', (req, res) => {
-  console.log(req.body)
-
   if (req.user === undefined) {
     var user_id = null
   } else {

@@ -56,7 +56,6 @@ function load_products_by_brands(this_page) {
   brand = $('brand_search_select').value;
   page = this_page
   xhr.post('./product/prices',{brand, page},{'Content-Type':'application/json'}).then((data)=> {
-    console.log(data)
     var br = document.createElement('br')
     var brand_name = document.createElement('h3');
    // brand_name.setAttribute('id','this_brand')
@@ -160,7 +159,6 @@ function load_products_by_brands(this_page) {
                       alert("No hay producto en existencia")
                     } else {
                       xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
-                        console.log(data);
                         if (data.msg === 200) {
                           alert("Producto agregado");
                           window.location.href = "./index.html";
@@ -266,7 +264,6 @@ function load_products_by_brands(this_page) {
                       if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                         alert("No hay producto en existencia")
                       } else {
-                        console.log(data.list[this.id])
                         xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
                           if (data.msg === 200) {
                             alert("Producto agregado");
@@ -376,7 +373,6 @@ function load_products_by_brands(this_page) {
                      }
                      var producto = data.list[td_id].id;
                       xhr.post(`./product/update`,{price:price.value, description:description.value, stock:stock.value, type_supplier:type_supplier.value, brand:update_brand, department:update_department, code:code.value, product_id:producto}, {'Content-Type':'application/json'}).then((data)=>{
-                        console.log(data)
                         alert("Producto editado con exito")
                       }).then(()=> { jQuery('#update_modal').modal('hide') })
                     });
@@ -468,7 +464,6 @@ function load_products_by_brands(this_page) {
       const checkLastPage = () => {
         for(let i=0; i<pageButtons.length; i++){
           if(pageButtons[pageButtons.length - 1].id == `toPage${actualPage}` ){
-            console.log('attempting to hide last page button')
             document.getElementById('nextButton').setAttribute("style", "display:none");
           } else
             document.getElementById('nextButton').setAttribute("style", "display:block");     
@@ -482,8 +477,6 @@ function load_products_by_brands(this_page) {
           }    
         }   
         if (checkFirstPage()){
-          console.log('trying to hide previous')
-          console.log(document.getElementById('previousButton'))
           document.getElementById('previousButton').setAttribute("style", "display:none");
         } else {
           document.getElementById('previousButton').setAttribute("style", "display:block");
@@ -492,7 +485,6 @@ function load_products_by_brands(this_page) {
       }
  
 
-      console.log('mamamelo')
       let pages = (data.count / 15)
       let pageCounter = 0
       let pagenav = $('pagenav');
@@ -536,7 +528,6 @@ function load_products_by_brands(this_page) {
 
       let previousli = previousButton()     
       let nextli = nextButton()
-      console.log(previousli)
 
       pageul.innerHTML = '';
       pageul.appendChild(previousli)
@@ -550,10 +541,7 @@ function load_products_by_brands(this_page) {
         pagebutton.setAttribute('id',`toPage${pageCounter}`);
         pageButtons.push(pagebutton) ;
         pageul.appendChild(pagebutton);
-        console.log(pagebutton);
       };
-      console.log('chekcing pages');
-      console.log(pageButtons);
       checkFirstPage();
       selectedPage(actualPage);
       pageul.appendChild(nextli);
@@ -572,7 +560,6 @@ function load_products_by_brands(this_page) {
       var xhr = new XHR();
       var department = $('department_search_select').value;
       xhr.post('./product/show_products_by_stuff',{brand, department, page},{'Content-Type':'application/json'}).then((data)=> {
-        console.log(data)
         if($('this') !== null) {
           $('this').remove();
         }
@@ -675,7 +662,6 @@ function load_products_by_brands(this_page) {
                           alert("No hay producto en existencia")
                         } else {
                           xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
-                            console.log(data);
                             if (data.msg === 200) {
                               alert("Producto agregado");
                               window.location.href = "./index.html";
@@ -787,7 +773,6 @@ function load_products_by_brands(this_page) {
                           if ((parseInt(data.list[this.id].stock) - parseInt(quantity)) < 0 && data.list[this.id].type_supplier === false) {
                             alert("No hay producto en existencia")
                           } else {
-                            console.log(data.list[this.id])
                             xhr.post('./cart/new', {product_id:data.list[this.id].id, product_name:data.list[this.id].code, product_price:data.list[this.id].price, quantity:quantity, total:total, stock:data.list[this.id].stock}, {'Content-Type':'application/json'}).then((data)=>{
                               if (data.msg === 200) {
                                 alert("Producto agregado");
@@ -895,7 +880,6 @@ function load_products_by_brands(this_page) {
                          }
                          var producto2 = data.list[td_id2].id;
                           xhr.post(`./product/update`,{price:price2.value, description:description2.value, stock:stock2.value, type_supplier:type_supplier2.value, brand:update_brand2, department:update_department2, code:code2.value, product_id:producto2}, {'Content-Type':'application/json'}).then((data)=>{
-                            console.log(data)
                             alert("Producto editado con exito")
                           }).then(()=> { jQuery('#update_modal').modal('hide') })
                         });
@@ -986,7 +970,6 @@ function load_products_by_brands(this_page) {
             const checkLastPage = () => {
               for(let i=0; i<pageButtons.length; i++){
                 if(pageButtons[pageButtons.length - 1].id == `toPage${actualPage}` ){
-                  console.log('attempting to hide last page button')
                   document.getElementById('nextButton').setAttribute("style", "display:none");
                 } else
                   document.getElementById('nextButton').setAttribute("style", "display:block");     
@@ -1000,8 +983,6 @@ function load_products_by_brands(this_page) {
                 }    
               }   
               if (checkFirstPage()){
-                console.log('trying to hide previous')
-                console.log(document.getElementById('previousButton'))
                 document.getElementById('previousButton').setAttribute("style", "display:none");
               } else {
                 document.getElementById('previousButton').setAttribute("style", "display:block");
@@ -1010,7 +991,6 @@ function load_products_by_brands(this_page) {
             }
       
 
-            console.log('mamamelo')
             let pages = (data.count / 15)
             let pageCounter = 0
             let pagenav = $('pagenav');
@@ -1054,7 +1034,6 @@ function load_products_by_brands(this_page) {
 
             let previousli = previousButton()     
             let nextli = nextButton()
-            console.log(previousli)
 
             pageul.innerHTML = '';
             pageul.appendChild(previousli)
@@ -1068,10 +1047,7 @@ function load_products_by_brands(this_page) {
               pagebutton.setAttribute('id',`toPage${pageCounter}`);
               pageButtons.push(pagebutton) ;
               pageul.appendChild(pagebutton);
-              console.log(pagebutton);
             };
-            console.log('chekcing pages');
-            console.log(pageButtons);
             checkFirstPage();
             selectedPage(actualPage);
             pageul.appendChild(nextli);
@@ -1109,7 +1085,6 @@ function select() {
   default_select.setAttribute('value', '')
   default_select.innerHTML = '-elegir opción-'
   xhr.get('./stuff/get_brands_and_departments',{},{}).then((data)=> {
-    console.log(data);
       for (var i=0; i<data.brands.length; i++) {
         var brand_option = document.createElement("option");
         brand_option.value = data.brands[i].name;
@@ -1132,7 +1107,6 @@ function select() {
         update_brand_option.value = data.brands[i].name;
         update_brand_option.innerHTML = data.brands[i].name
         $('update_brand_select').appendChild(update_brand_option);
-        console.log($('update_brand_select'))
       }
 
         $('update_department_select').innerHTML = "";
@@ -1162,7 +1136,6 @@ function second_function() {
   xhr.get(`./product/departments_by_brand/${b}`,{},{}).then((data)=> {
     for (var i=0; i<data.departments.length; i++) {
       var department_option = document.createElement("option");
-      console.log(data.departments[i].department)
       department_option.value = data.departments[i].department;
       department_option.innerHTML = data.departments[i].department;
       $('department_search_select').appendChild(department_option);
@@ -1196,9 +1169,6 @@ goToPage = page => {
     load_products_by_departments(page)
   }   
   actualPage = page;
-  console.log('the actual page is ' + actualPage)
-  console.log('brand showing is:')
-  console.log(showingByBrand)
 } 
 
 nextPage = () => {
