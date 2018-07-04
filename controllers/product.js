@@ -70,7 +70,8 @@ router.post('/show_products_by_stuff',(req,res)=>{
   if (page != 1) {
     offset = (15*parseInt(page)) - 15
   }
-  product.count_by_brand(brand).then(count => {   
+  product.count_by_brand_and_department(brand).then(count => {   
+    console.log(count)
     product.show_by_brand_and_department(brand, department, offset).then(data=>{
           res.send({list:data, id:user_id, admin, count:count.count})
           }).catch(err=>{
