@@ -1,3 +1,5 @@
+var messageModalAdd
+
 function $(id) {
     return document.getElementById(id);
 };
@@ -84,7 +86,7 @@ function select() {
             //  $('message_modal_button').setAttribute('id', 'new_add');
           //esta linea de abajo no va
 
-
+              messageModalAdd = true
           //esto si
 
               var add_stuff_div= document.createElement('div')
@@ -107,6 +109,7 @@ function select() {
               new_dept.setAttribute('placeholder','departamento')
               $('message_modal_title').innerHTML = "Agregar nueva marca y/o departamento"
               $('message_modal_button').innerHTML = "Agregar"
+              $('message_modal_button').setAttribute('style','display:block')
               $('message_modal_body').innerHTML= ""
               $('message_modal_body').appendChild(firstspan)
               $('message_modal_body').appendChild(new_brand)
@@ -166,7 +169,7 @@ function select() {
 
 
       $('show_stuff_btn').addEventListener('click', function() {
-
+        messageModalAdd = false;
 
 
         //$('stuff_tr').innerHTML = "";
@@ -295,6 +298,7 @@ function select() {
 
                         }*/
                         //$('message_modal_body').innerHTML= ""
+
                         $('message_modal_button').setAttribute('style','display:none;')
 
                         $('message_modal_body').appendChild(tbl)
