@@ -44,10 +44,7 @@ function sendFile(){
         } else {
           alert("Error al cargar el producto")
         }
-  }).then( () =>{
-     $('close_upload_modal').click()
-     location.reload();
-  });
+  })
 };
 
 function select() {
