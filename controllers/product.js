@@ -29,6 +29,7 @@ router.post('/create', (req,res)=>{
     product.add_product(req.body.price, req.user.id, req.body.description, req.body.stock, req.body.type_supplier, req.body.brand, req.body.department, req.body.code).then(data=>{
           res.send({status:200})
           }).catch(err=>{
+            console.log(err)
             res.send({status:500})
             throw err
           })
