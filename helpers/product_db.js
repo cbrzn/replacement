@@ -7,6 +7,7 @@ module.exports.add_product = (price, user_id, description, stock, type_supplier,
                 res(200);
                 obj.done();
             }).catch((error)=>{
+                console.log(error)
                 rej(500);
                 obj.done();
             });
